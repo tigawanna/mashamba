@@ -21,27 +21,24 @@ setIsOpen(false)
   },[location.current.href])
 
 return (
- <div className='w-full h-full flex items-center justify-between p-1'>
-        <div className="md:hidden">
-    <TheIcon Icon={isOpen?FaTimes:FaBars} size="50" iconstyle="" 
+    <div className='w-full h-full flex items-center justify-between p-1 font-serif'>
+    
+    <div className="md:hidden">
+    <TheIcon Icon={isOpen?FaTimes:FaBars} size="50px" iconstyle="" 
         iconAction={()=>setIsOpen(prev=>!prev)}/>
-        </div>
+    </div>
 
         <Link className="w-full text-xl md:text-2xl mx-2 min-w-[150px]
         font-bold hover:text-purple-400 hover:no-underline" href="/">
             Real Estates
         </Link>
 
-        <nav className="w-full p-1 hidden md:flex">
+        <nav className="min-w-[250px] p-1 hidden md:flex">
             <RouteLinks/>
         </nav>
         <ClientSuspense fallback="">
         <ReactModalWrapper
-            child={
-            <nav className="w-full  flex item-center gap-1 ">
-                <RouteLinks />
-            </nav>
-        }
+            child={<nav className="w-full  flex item-center gap-1 font-serif"><RouteLinks /></nav>}
             closeModal={() => setIsOpen(false)}
             delay={0}
             open={isOpen}
