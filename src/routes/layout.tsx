@@ -1,10 +1,21 @@
 // This is the main layout of our app. It renders the header and the footer.
 
-import { Head, Link, StyledLink, Layout } from "rakkasjs";
+import { ClientSuspense, Head,  Layout, useLocation, UseLocationResult } from "rakkasjs";
 import '../styles/tailwind.css'
 import "./layout.module.css";
+import Toolbar from "../components/navigation/Toolbar";
+import { ReactProgress } from "../components/shared/loaders/ReactProgress";
 
-const MainLayout: Layout = ({ children }) => (
+const MainLayout: Layout = ({ children }) => {
+  const location = useLocation()
+
+  const isanumating = (location: UseLocationResult) => {
+    if (location.pending) {
+      return true
+    }
+    return false
+  }
+  return (
   <>
     {/* Rakkas relies on react-helmet-async for managing the document head */}
     {/* See their documentation: https://github.com/staylor/react-helmet-async#readme */}
@@ -13,24 +24,15 @@ const MainLayout: Layout = ({ children }) => (
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></link>
     </Head>
 
-    <header className='w-full h-12 p-2 sticky top-0 bg-slate-900'>
+    <header className='w-full h-12 p-2 z-30 sticky top-0 bg-slate-900 text-white'>
       {/* <Link /> is like <a /> but it provides client-side navigation without full page reload. */}
- <nav className="w-full flex items-center justify-between gap-2 ">
-      <div>
-          <Link className="h-full truncate min-w-24 text-3xl font-bold hover:text-purple-900" href="/">
-            Real Estates
-          </Link>
-      </div>
-      <div className="flex flex-wrap">
-          <StyledLink href="/" activeClass={"text-purple-700"} className="p-2 hover:text-purple-700">Home</StyledLink>
-          <StyledLink href="/about" activeClass={"text-purple-700"} className="p-2 hover:text-purple-700">About</StyledLink>
-          <StyledLink href="listings" activeClass={"text-purple-700"} className="p-2 hover:text-purple-700">Listings</StyledLink>
-          <StyledLink href="/contact" activeClass={"text-purple-700"} className="p-2 hover:text-purple-700">Contact Us</StyledLink>
-          </div>
-        </nav>
-</header>
+      <ClientSuspense fallback="" >
+        <Toolbar />
+        <ReactProgress isAnimating={isanumating(location)} />
+      </ClientSuspense>
+      </header>
 
-    <section className={" h-full w-full"}>{children}</section>
+    <section className={" h-full w-full "}>{children}</section>
 
   <footer className="footer h-14 flex flex-col md:flex-row items-center justify-center p-2">
     <div className="f1">
@@ -64,6 +66,6 @@ const MainLayout: Layout = ({ children }) => (
     </div>
   </footer>
   </>
-);
+)};
 
 export default MainLayout;
