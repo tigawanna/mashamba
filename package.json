@@ -1,0 +1,39 @@
+{
+  "name": "masahmva",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "rakkas --port 3000",
+    "build": "rakkas build",
+    "start": "node dist/server",
+    "format": "prettier --write --ignore-unknown src",
+    "test": "npm run test:typecheck && npm run test:format && npm run test:lint && npm run test:unit",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:format": "prettier --check --ignore-unknown src",
+    "test:lint": "eslint . --ignore-pattern dist",
+    "test:unit": "vitest run"
+  },
+  "devDependencies": {
+    "@rakkasjs/eslint-config": "0.6.15",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.33.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.3",
+    "rakkasjs": "0.6.15",
+    "tailwindcss": "^3.2.6",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vite-tsconfig-paths": "^4.0.5",
+    "vitest": "^0.28.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/core": "^5.10.3",
+    "@mantine/hooks": "^5.10.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1"
+  }
+}
