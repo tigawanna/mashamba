@@ -28,7 +28,7 @@ return (
         iconAction={()=>setIsOpen(prev=>!prev)}/>
     </div>
 
-        <Link className="w-full text-xl md:text-2xl mx-2 min-w-[150px]
+        <Link className="w-fit  min-w-[150px] text-xl md:text-2xl mx-2 
         font-bold hover:text-purple-400 hover:no-underline" href="/">
             Real Estates
         </Link>
