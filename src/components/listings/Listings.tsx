@@ -21,7 +21,7 @@ return (
         return (
         <Link  href={`/listings/${land.id}`}
             key={land.latitude+land.longitude+land.owner}
-                className="h-full w-full  shadow-lg border aspect-square rounded-lx aspect-square accent-fuchsia-400
+                className="h-full max-h-[500px] w-full  shadow-lg border rounded-lx aspect-square accent-fuchsia-400
                         hover:shadow-lg  hover:shadow-slate-300 rounded-2xl 
                         flex flex-col items-start justify-center">
                 <img className='h-auto w-full aspect-square  object-cover rounded-t-2xl' 
