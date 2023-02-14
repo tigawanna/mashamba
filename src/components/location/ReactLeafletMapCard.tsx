@@ -23,14 +23,14 @@ const [position, setPosition] = useState(()=>{
     }
 
     return {
-        lat: -1.2878167, lng: 36.8272042
+        lat: -1.2878167, lng: 16.8272042
     }
 })
 // console.log("geolocation", geolocation)
 return (
  <div className='w-full h-full flex items-center justify-center'>
     <MapContainer 
-        style={{ width: "60%", height: "500px" }} 
+        style={{ width: "90%", height: "500px" }} 
         center={position} zoom={35} scrollWheelZoom={true}>
             <TileLayer
                 attribution='&copy; 

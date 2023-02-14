@@ -35,7 +35,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                 <div
                     key={land.latitude + land.longitude + land.owner}
                     className="h-[100%] max-h-[400px]  
-                        flex md:flex-row flex-col items-start justify-center rounded-2xl">
+                        flex md:flex-row flex-col items-center justify-center rounded-2xl m-2">
      
                    <div className="font-serif p-3 md:w-[40%]">
                         <h1 className='text-2xl font-bold'>{land.location}</h1>
@@ -47,8 +47,8 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                         </div>
                     </div>
 
-                    <img className='h-auto md:w-[30%]   object-cover rounded-t-2xl'
-                        src={`https://picsum.photos/id/${29}/400/300`}
+                    <img className='h-auto w-[90%]  md:w-[30%]  object-cover rounded'
+                        src={`https://picsum.photos/id/${29}/200/200`}
                         alt={land.location}
                         height={'200px'} width={'200px'} />
 
