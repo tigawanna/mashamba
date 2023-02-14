@@ -31,7 +31,8 @@ const response =  await fetch('https://my.api.mockaroo.com/land_listings.json?ke
     method:'GET',
 }) 
 const lands = await response.json() as LandListingProps[];
-return lands.filter(land=>land.id===id)[0]
+
+return lands&&lands.filter(land=>land.id===id)[0]
 }  
 
 catch(err){

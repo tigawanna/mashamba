@@ -6,7 +6,7 @@ import { Location } from "../../components/location/Location";
 const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
 
 
-    console.log("land id ====> ",params)
+    // console.log("land id ====> ",params)
     const land_id= parseInt(params.id)
 
     const { data, refetch } = useServerSideQuery(
@@ -20,12 +20,13 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
             refetchOnWindowFocus: true,
             refetchOnReconnect: true,
         });
-    console.log("product data ===> ",data)
-    const land = data
-    if(!land){
+    // console.log("product data ===> ",data)
+
+    if(!data){
         return <div>Loading...</div>
     }
-
+    const land = data
+    
     return (
         <main className="w-full h-full min-h-screen flex flex-col items-center justify-center">
             <div className="w-full h-full flex flex-col items-center justify-center gap-2">

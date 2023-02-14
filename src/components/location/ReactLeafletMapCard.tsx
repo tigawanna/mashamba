@@ -23,7 +23,7 @@ const [position, setPosition] = useState(()=>{
     }
 
     return {
-        lat: -1.2878167, lng: 16.8272042
+        lat: -1.290394, lng: 36.816583
     }
 })
 // console.log("geolocation", geolocation)

@@ -1,5 +1,5 @@
-import { Link, useLocation, useServerSideQuery } from "rakkasjs";
-import { getListsings, LandListingProps } from './../../utils/api/listings';
+import { Link, useServerSideQuery } from "rakkasjs";
+import { getListsings } from './../../utils/api/listings';
 
 interface ListingsProps {
 
@@ -25,7 +25,7 @@ return (
                         hover:shadow-lg  hover:shadow-slate-300 rounded-2xl 
                         flex flex-col items-start justify-center">
                 <img className='h-[300px] w-full  object-cover rounded-t-2xl' 
-                    src={`https://picsum.photos/id/${Math.floor(Math.random() * (30 - 9)) + 9}/400/300`} 
+                    src={`https://picsum.photos/id/${Math.floor(Math.random() * (30 - 9)) + 9}/200/200`} 
                     alt={land.location} 
                  height={'200px'} width={'200px'}/>
                 
