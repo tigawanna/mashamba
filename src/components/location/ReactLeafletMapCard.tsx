@@ -25,8 +25,8 @@ const [position, setPosition] = useState(()=>{
 return (
  <div className='w-full h-full flex items-center justify-center'>
     <MapContainer 
-        style={{ width: "100%", height: "500px" }} 
-        center={position} zoom={50} scrollWheelZoom={true}>
+        style={{ width: "60%", height: "500px" }} 
+        center={position} zoom={35} scrollWheelZoom={true}>
             <TileLayer
                 attribution='&copy; 
                 <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
