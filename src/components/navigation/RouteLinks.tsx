@@ -15,10 +15,10 @@ return (
     className="hover:text-purple-700 hover:underline"  
     activeClass="text-purple-700 underline" >
          Listings </StyledLink>
-    <StyledLink href="/contact" 
+    {/* <StyledLink href="/contact" 
     className="hover:text-purple-700 hover:underline" 
     activeClass="text-purple-700 underline" >
-        Contact Us </StyledLink>
+        Contact Us </StyledLink> */}
  </nav>
 );
 }
