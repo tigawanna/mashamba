@@ -1,5 +1,5 @@
-import { useServerSideQuery } from "rakkasjs";
-import { getListsings } from './../../utils/api/listings';
+import { Link, useLocation, useServerSideQuery } from "rakkasjs";
+import { getListsings, LandListingProps } from './../../utils/api/listings';
 
 interface ListingsProps {
 
@@ -9,7 +9,9 @@ interface ListingsProps {
 
 
 export const Listings = ({}:ListingsProps) => {
+
 const  { data,refetch} = useServerSideQuery(getListsings)
+   
 // console.log("listings === ",data)
 return (
  <div className='w-full h-full flex items-center justify-center'>
@@ -17,13 +19,13 @@ return (
 {
     data&&data?.map((land)=>{
         return (
-            <div 
+        <Link  href={`/listings/${land.id}`}
             key={land.latitude+land.longitude+land.owner}
-                className="h-full w-full  shadow-lg border rounded-lx aspect-square accent-fuchsia-400
+                className="h-full w-full  shadow-lg border aspect-square rounded-lx aspect-square accent-fuchsia-400
                         hover:shadow-lg  hover:shadow-slate-300 rounded-2xl 
                         flex flex-col items-start justify-center">
                 <img className='h-auto w-full aspect-square  object-cover rounded-t-2xl' 
-                    src={`https://picsum.photos/id/${Math.floor(Math.random() * (20 - 9)) + 9}/400/300`} 
+                    src={`https://picsum.photos/id/${Math.floor(Math.random() * (30 - 9)) + 9}/400/300`} 
                     alt={land.location} 
                  height={'200px'} width={'200px'}/>
                 
@@ -37,7 +39,7 @@ return (
                     </div>
                 </div>
                 
-            </div>
+            </Link>
         )
     })
 }

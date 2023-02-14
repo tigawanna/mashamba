@@ -4,19 +4,24 @@ import { useState } from 'react';
 import 'leaflet/dist/leaflet.css'
 
 interface ReactLeafletMapCardProps {
-
+ coords:{lat:number ; lng: number}
+ display:boolean
 }
 
-const ReactLeafletMapCard = ({}:ReactLeafletMapCardProps) => {
+const ReactLeafletMapCard = ({coords,display}:ReactLeafletMapCardProps) => {
 const geolocation = useGeoLocation()
 
 const [position, setPosition] = useState(()=>{
-    if(geolocation && "coords" in geolocation){
+    if(display){
+        return coords
+    }
+    else if(geolocation && "coords" in geolocation){
         return {
             lat: geolocation.coords.latitude,
             lng: geolocation.coords.longitude
         }
     }
+
     return {
         lat: -1.2878167, lng: 36.8272042
     }
