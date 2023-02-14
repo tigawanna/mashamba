@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa/index.js";
 import { TheIcon } from "../shared/wrappers/TheIcon";
 
 interface FooterProps {

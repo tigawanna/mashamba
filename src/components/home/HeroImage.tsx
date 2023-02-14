@@ -1,4 +1,3 @@
-
 import BigLand from '../../assets/land-big.jpg';
 import css from './home.module.css'
 import { Link } from 'rakkasjs';

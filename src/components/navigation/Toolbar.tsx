@@ -24,7 +24,7 @@ return (
     <div className='w-full h-full flex items-center justify-between p-1 font-serif'>
     
     <div className="md:hidden">
-    <TheIcon Icon={isOpen?FaTimes:FaBars} size="50px" iconstyle="" 
+    <TheIcon Icon={isOpen?FaTimes:FaBars} size="40px" iconstyle="" 
         iconAction={()=>setIsOpen(prev=>!prev)}/>
     </div>
 
