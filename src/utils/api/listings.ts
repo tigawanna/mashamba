@@ -1,7 +1,7 @@
 
 export interface LandListingProps{
  id:number;
-   location: string;
+    location: string;
     latitude: number;
     longitude: number;
     description: string;
@@ -12,6 +12,31 @@ export interface LandListingProps{
     image: string;
 
 }
+
+interface PBListings{
+
+    location: string;
+    region:string
+
+    latitude: number;
+    longitude: number;
+    
+    description: string;
+    owner: string;
+    phone: string;
+    email: string;
+    extra_details:string;
+
+    price: number;
+    sold:boolean;
+
+    main_image_hd: string;
+    main_image_mobile_hd: string;
+    main_image_low: string;
+
+}
+
+
 export const getListsings=async()=>{
 try{
 const response =  await fetch('https://my.api.mockaroo.com/land_listings.json?key=30509c40',{
