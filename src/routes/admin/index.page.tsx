@@ -1,7 +1,7 @@
 // admin page
 import { useState } from 'react';
 import { ListingsForm } from './../../components/listings/ListingsForm';
-import { useMutation } from 'rakkasjs';
+import { RequestContext, useMutation, useServerSideMutation } from 'rakkasjs';
 import { PBListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
 
@@ -24,7 +24,8 @@ export default function AdminPage() {
         owner: ""
     });
 
-    async function saveListing(input: ListingFormInputs){
+    async function saveListing(ctx: RequestContext,input: ListingFormInputs){
+        console.log("request ctx ",ctx)
         const formdata = new FormData();
         if (input?.image && input.image instanceof File) {
             formdata.append("image", input?.image);
@@ -46,8 +47,10 @@ export default function AdminPage() {
         return await res.json() as PBListings
     } 
 
-    const mutation = useMutation<PBListings,ListingFormInputs>((input)=>saveListing(input),{
+    const mutation = useServerSideMutation<PBListings,ListingFormInputs>((ctx,input)=>saveListing(ctx,input),{
+        
         onSuccess:()=>{
+       
             setOpen(false)
             setInput({
              location: "",

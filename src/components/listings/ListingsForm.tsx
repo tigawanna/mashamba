@@ -1,6 +1,5 @@
 import { UseMutationResult } from "rakkasjs";
 import React from "react";
-import { concatErrors } from "../../utils/helper/concatErrors";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { PlainFormButton } from "../shared/form/FormButton";
@@ -9,6 +8,7 @@ import { PBListings } from "../../utils/api/listings";
 import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
 import { FormTextArea } from './../shared/form/FormTextArea';
+
 
 interface ListingsFormProps {
     mutation: UseMutationResult<PBListings, ListingFormInputs>
@@ -98,6 +98,7 @@ return (
                 handleChange={handleChange}
                 input={input}
                 prop="longitude"
+                type={'number'}
                 label="Property Longitude"
             />
             <FormInput<ListingFormInputs>
@@ -105,6 +106,7 @@ return (
                 handleChange={handleChange}
                 input={input}
                 prop="latitude"
+                type={'number'}
                 label="Property latitude"
             />
             <FormInput<ListingFormInputs>
@@ -166,7 +168,7 @@ return (
                         iconAction={() => fileInput.current?.click()}
                     />
                 </div>
-                </div>
+            </div>
         
             
 
@@ -200,13 +202,15 @@ return (
 export function checkIfEmpty<T=unknown>(obj:T){
     for (const key in obj) {
         if (typeof obj[key as keyof T] ==="string" && obj[key as keyof T] === "") {
-
+            console.log(obj[key as keyof T] ,"  is empty")
             return true;
         }
         if (typeof obj[key as keyof T] === "number" && obj[key as keyof T] === 0) {
+            console.log(obj[key as keyof T], "  is empty")
             return true;
         }
         if (obj[key as keyof T] instanceof File  && obj[key as keyof T] ) {
+            console.log(obj[key as keyof T], "  is empty")
             return true;
         }
     }

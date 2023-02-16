@@ -7,10 +7,11 @@ prop: keyof T
 error: { name: string; message: string }
 handleChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
 input:T
+type?:React.HTMLInputTypeAttribute
 
 }
 
-export const FormInput = <T,>({error,handleChange,prop,input,label}:FormInputProps<T>) => {
+export const FormInput = <T,>({error,handleChange,prop,input,label,type='text'}:FormInputProps<T>) => {
     const isError = (err:typeof error, prop: keyof T) => {
         if (err.name === prop && err.message !== "") {
             return true;
@@ -29,7 +30,7 @@ return (
                 dark:border-white h-10 rounded-sm   dark:bg-slate-700
                 focus:border-2 dark:focus:border-4 focus:border-purple-700 dark:focus:border-purple-600 "
             id={prop as string}
-            type={"text"}
+            type={type}
             placeholder={prop as string}
             onChange={handleChange}
             autoComplete={"off"}
