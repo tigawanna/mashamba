@@ -16,8 +16,8 @@ export const FormTextArea = <T,>({error,handleChange,input,label,prop}:FormTextA
     };
 return (
     <div className="flex flex-col items-center justify-center w-full ">
-        <label className="font-bold  text-md capitalize  w-[90%] flex items-start">
-            bio
+        <label className="text-md capitalize  w-[90%] flex items-start">
+            {label}
         </label>
 
 

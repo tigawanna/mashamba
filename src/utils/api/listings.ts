@@ -13,26 +13,23 @@ export interface LandListingProps{
 
 }
 
-interface PBListings{
+export interface PBListings{
 
-    location: string;
-    region:string
-
-    latitude: number;
-    longitude: number;
-    
-    description: string;
-    owner: string;
-    phone: string;
-    email: string;
-    extra_details:string;
-
-    price: number;
-    sold:boolean;
-
-    main_image_hd: string;
-    main_image_mobile_hd: string;
-    main_image_low: string;
+  id: string
+  collectionId: string
+  collectionName: string
+  created: string
+  updated: string
+  location: string
+  longitude: number
+  latitude: number
+  description: string
+  phone: string
+  status: string
+  image: string| File| null
+  amenities: string
+  dimensions: string
+  owner: string
 
 }
 
