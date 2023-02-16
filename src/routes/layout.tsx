@@ -2,7 +2,6 @@
 
 import { ClientSuspense, Head,  Layout, useLocation, UseLocationResult } from "rakkasjs";
 import '../styles/tailwind.css'
-import "./layout.module.css";
 import Toolbar from "../components/navigation/Toolbar";
 import { ReactProgress } from "../components/shared/loaders/ReactProgress";
 import { Footer } from './../components/navigation/Footer';
@@ -22,8 +21,7 @@ const MainLayout: Layout = ({ children }) => {
     {/* See their documentation: https://github.com/staylor/react-helmet-async#readme */}
     <Head title="Real estates">
       <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></link>
-    </Head>
+  </Head>
 
     <header className='w-full h-12 p-2 z-30 sticky top-0 bg-slate-900 text-white'>
       {/* <Link /> is like <a /> but it provides client-side navigation without full page reload. */}

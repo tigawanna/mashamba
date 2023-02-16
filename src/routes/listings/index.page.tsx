@@ -1,7 +1,7 @@
 // about page
 
 import { Listings } from "../../components/listings/Listings";
-import { Location } from "../../components/location/Location";
+
 
 export default function AboutPage() {
     return (
