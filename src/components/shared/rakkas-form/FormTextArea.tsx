@@ -1,15 +1,17 @@
-
-interface FormTextAreaProps<T> {
+interface InputDataType<T> {
+    fields: T
+    error: { field: keyof T | "main", message: string }
+}
+interface FormInputProps<T> {
     label: string;
-    prop: keyof T
-    error: { name: string; message: string }
-    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
-    input: T
+    prop: keyof T;
+    input: InputDataType<T>;
 }
 
-export const FormTextArea = <T,>({error,handleChange,input,label,prop}:FormTextAreaProps<T>) => {
-    const isError = (err: typeof error, prop: keyof T) => {
-        if (err.name === prop && err.message !== "") {
+
+export const FormTextArea = <T,>({ prop, input, label }: FormInputProps<T>) => {
+    const isError = (actionData: InputDataType<T>, prop: keyof T) => {
+        if (actionData && actionData?.error?.message && actionData?.fields && actionData?.fields[prop] !== "") {
             return true;
         }
         return false;
@@ -22,21 +24,21 @@ return (
 
 
         <textarea
-            id={prop as string}
-            style={{ borderColor: isError(error,prop) ? "red" : "" }}
+            style={{ borderColor: isError(input,prop) ? "red" : "" }}
             className="w-[90%] min-h-[100px] md:h-[30%]
                     m-2 p-2  border border-black dark:border-white text-base rounded-lg
                     dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
                     dark:focus:border-purple-600 "
+            name={prop as string}
             placeholder={`enter ${prop as string}`}
-            onChange={handleChange}
-            autoComplete={"off"}
-            value={input[prop] as string}
+            // autoComplete={"off"}
+            defaultValue={input?.fields && input?.fields[prop] as string}
         />
 
-        {isError(error,prop) ? (
-            <div className="text-base  text-red-600">{error.message}</div>
+        {isError(input, prop) ? (
+            <div className="text-base  text-red-600">{input.error.message}</div>
         ) : null}
+
     </div>
 );
 }

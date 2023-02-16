@@ -1,45 +1,45 @@
 // about page
 import { ActionContext, ActionResult, Head, PageProps, useSubmit } from 'rakkasjs';
 import { FormInput } from '../../components/shared/rakkas-form/FormInput';
+import { PlainFormButton } from '../../components/shared/rakkas-form/FormButton';
+import { FormFileInput } from '../../components/shared/rakkas-form/FormFileInput';
 
-export default function AddPage({actionData }:PageProps) {
-    const { submitHandler } = useSubmit();
+export default function AddPage({actionData, }:PageProps) {
+    const { submitHandler,isLoading,isSuccess,status,isError,data,error } = useSubmit();
     console.log("action adata === ",actionData)
+    
+
+
     return (
         <main className="w-full min-h-screen h-full flex justify-center items-center">
             
             <form method="POST" onSubmit={submitHandler}>
                 <Head title="Add new listing" />
        
-                    <label>
-                        User name:
-                        <br />
-                        <input
-                            type="text"
-                            name="userName"
-                            defaultValue={actionData?.userName}
-                        />
-                    </label>
-                    <FormInput
-                    input={actionData as ActionDataType}
+  
+                  <FormInput<FormFields>
+                    input={actionData}
                     label='nickname'
                     prop={'nickname'}
                     />
 
+
+                <FormFileInput<FormFields>
+                    input={actionData}
+                    label='image'
+                    prop={'pic'}
+                />
             
-            
-                    <label>
-                        Password:
-                        <br />
-                        <input
-                            type="password"
-                            name="password"
-                            defaultValue={actionData?.password}
-                        />
-                    </label>
+
+                <PlainFormButton
+                    disabled={isLoading}
+                    isSubmitting={isLoading}
+                    label={"save changes"}
+                />
+     
        
                 
-                    <button type="submit">Submit</button>
+            <button type="submit">Submit</button>
               {actionData && <p style={{ color: "red" }}>{actionData.message}</p>}
             </form>
 
@@ -47,23 +47,21 @@ export default function AddPage({actionData }:PageProps) {
     );
 }
 export interface FormFields{
-    userName: FormDataEntryValue | null;
-    password: FormDataEntryValue | null;
     nickname: FormDataEntryValue | null;
+    pic: FormDataEntryValue | null;
+    
 }
 
-export interface ErrorObject{
-    field:keyof FormFields | "main", message:string 
+
+export interface ActionDataType<T>{
+   fields:T | null
+   error:{ field:keyof T | "main", message: string}
 }
 
-export interface ActionDataType{
-   fields:FormFields | null
-   error: | null
-}
-
-export async function action(ctx: ActionContext): Promise<ActionResult<ActionDataType>> {
+export async function action(ctx: ActionContext): Promise<ActionResult<ActionDataType<FormFields>>> {
     const formData = await ctx.requestContext.request.formData();
-
+    const data = await ctx.requestContext.request
+   console.log("data === ",data)
     if(formData.get("userName") === "admin" && formData.get("password") === "admin"){
         return {
             redirect: "/use-submit/submitted",
@@ -74,9 +72,9 @@ export async function action(ctx: ActionContext): Promise<ActionResult<ActionDat
         data: {
             fields: {
                 // We'll echo the data back so that the form doesn't get reset
-                userName: formData.get("userName"),
-                password: formData.get("password"),
+         
                 nickname: formData.get("nickname"),
+                pic: formData.get("pic"),
             },
             error: {
                 field: "main",message: "something went wrong"
