@@ -1,5 +1,5 @@
 import { UseMutationResult } from "rakkasjs";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { PlainFormButton } from "../shared/form/FormButton";
@@ -8,6 +8,8 @@ import { PBListings } from "../../utils/api/listings";
 import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
 import { FormTextArea } from './../shared/form/FormTextArea';
+import { AmenitiesGrioup } from "./AmenitiesGrioup";
+
 
 
 interface ListingsFormProps {
@@ -23,10 +25,9 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
 
 
 
+
     const [pic, setPic] = React.useState<File | string | null>();
-
     const fileInput = React.useRef<HTMLInputElement | null>(null);
-
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         if ("files" in e.target && e.target.files) {
             setPic(e.target.files[0]);
@@ -69,6 +70,10 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
             setError({ name: "", message: "" });
         }
     };
+
+
+
+
     console.log("check if emoty ",checkIfEmpty(input))
 return (
     <div
@@ -93,6 +98,7 @@ return (
                 prop="location"
                 label="Property location"
             />
+        
             <FormInput<ListingFormInputs>
                 error={error}
                 handleChange={handleChange}
@@ -109,6 +115,7 @@ return (
                 type={'number'}
                 label="Property latitude"
             />
+            {/* <button className="p-1 border rounded hover:bg-purple-900 " onClick={() => setCurrentLocation()}>use current location</button> */}
             <FormInput<ListingFormInputs>
                 error={error}
                 handleChange={handleChange}
@@ -131,7 +138,7 @@ return (
                 prop="description"
                 label="Property Description"
             />
-
+            <AmenitiesGrioup amenities={input.amenities} />
 
             {/* image input section  */}
             <div className="w-full  h-full flex flex-col items-center justify-center ">

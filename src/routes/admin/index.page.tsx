@@ -1,29 +1,33 @@
 // admin page
 import { useState } from 'react';
 import { ListingsForm } from './../../components/listings/ListingsForm';
-import { RequestContext, useMutation, useServerSideMutation } from 'rakkasjs';
+import { RequestContext, useServerSideMutation } from 'rakkasjs';
 import { PBListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
+import { useGeoLocation } from './../../utils/hooks/useGeoLocation';
 
 export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated">
 
 export default function AdminPage() {
+    const { position } = useGeoLocation();
     const [open, setOpen] = useState(false)
     const [error, setError] = useState({ name: "", message: "" });
 
+
     const [input, setInput] = useState<ListingFormInputs>({
-        location: "",
-        longitude: 0,
-        latitude: 0,
-        description: "",
+        location: "Location",
+        longitude: position.lng,
+        latitude: position.lat,
+        description: "Be descriptive, but don’t go over the top with your praise. Remember, people can tell when you’re trying too hard. For example, we all know “cozy” is code for “very small.” Your real estate listing description is your chance to get creative and paint a picture of your listing. Adding too many extra adjectives will make the readers assume you’re trying to distract them from reality.",
         phone: "",
         status: "",
         image: "",
-        amenities: "",
-        dimensions: "",
+        amenities:{type:"land"},
+        dimensions: "100 x 150",
         owner: ""
     });
 
+    
     async function saveListing(ctx: RequestContext,input: ListingFormInputs){
         console.log("request ctx ",ctx)
         const formdata = new FormData();
@@ -60,7 +64,7 @@ export default function AdminPage() {
              phone: "",
              status: "",
              image: "",
-             amenities: "",
+             amenities:null,
              dimensions: "",
              owner: ""
             })

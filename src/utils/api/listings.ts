@@ -13,6 +13,33 @@ export interface LandListingProps{
 
 }
 
+
+export interface ListingAmenities{
+type:"land"|"house"|"apartment";
+size?:string;
+
+// land psecific
+water_source?:string;
+elecricity_source?:string;
+closest_school?:string;
+closest_hospital?:string;
+closest_police_station?:string;
+closest_town?:string;
+
+//  house or appartment specific
+gated_community?:boolean;
+pavements?:boolean;
+street_lights?:boolean;
+parking?:boolean;
+
+bedrooms?:number;
+bathrooms?:number;
+garages?:number;
+fireplace?:number;
+swimming_pool?:number;
+
+}
+
 export interface PBListings{
 
   id: string
@@ -27,10 +54,9 @@ export interface PBListings{
   phone: string
   status: string
   image: string| File| null
-  amenities: string
+  amenities:ListingAmenities|null
   dimensions: string
   owner: string
-
 }
 
 
