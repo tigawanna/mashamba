@@ -1,5 +1,5 @@
 import { UseMutationResult } from "rakkasjs";
-import React, { useState } from "react";
+import React  from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { PlainFormButton } from "../shared/form/FormButton";
@@ -9,6 +9,8 @@ import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
 import { FormTextArea } from './../shared/form/FormTextArea';
 import { AmenitiesGrioup } from "./AmenitiesGrioup";
+import ReactLeafletMapCard from "../location/ReactLeafletMapCard";
+import { checkIfEmpty } from "../../utils/helper/checkIfObjectHasemptyField";
 
 
 
@@ -53,6 +55,11 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
         }
     }
 
+    const setMapLocation=(lat:number,lng:number)=>{
+        setInput(prev => {
+            return { ...prev,latitude:lat,longitude:lng }
+        })   
+    }
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -100,7 +107,7 @@ return (
                 {label}
             </div>
             {/* location */}
-            
+            {/* property location */}
             <FormInput<ListingFormInputs>
                 error={error}
                 handleChange={handleChange}
@@ -109,7 +116,41 @@ return (
                 label="Property location"
             />
         
+
+            {/*  property dimensions */}
             <FormInput<ListingFormInputs>
+                error={error}
+                handleChange={handleChange}
+                input={input}
+                prop="dimensions"
+                label="Property dimensions"
+            />
+
+            {/*  property owner */}
+            <FormInput<ListingFormInputs>
+                error={error}
+                handleChange={handleChange}
+                input={input}
+                prop="owner"
+                label="Property Owner"
+            />
+            {/*  property desciption input */}
+            <FormTextArea<ListingFormInputs>
+                error={error}
+                handleChange={handleChange}
+                input={input}
+                prop="description"
+                label="Property Description"
+            />
+            {/*  amenities sub form */}
+            <AmenitiesGrioup 
+                amenities={input.amenities}
+                setAmenity={setAmmenity} 
+           />
+
+             {/*  coodinates map and inputs */}
+            <div className="w-[90%] p-5 flex flex-row  items-center justify-center">
+                <FormInput<ListingFormInputs>
                 error={error}
                 handleChange={handleChange}
                 input={input}
@@ -125,35 +166,15 @@ return (
                 type={'number'}
                 label="Property latitude"
             />
-            {/* <button className="p-1 border rounded hover:bg-purple-900 " onClick={() => setCurrentLocation()}>use current location</button> */}
-            <FormInput<ListingFormInputs>
-                error={error}
-                handleChange={handleChange}
-                input={input}
-                prop="dimensions"
-                label="Property dimensions"
-            />
-            <FormInput<ListingFormInputs>
-                error={error}
-                handleChange={handleChange}
-                input={input}
-                prop="owner"
-                label="Property Owner"
-            />
-            
-            <FormTextArea<ListingFormInputs>
-                error={error}
-                handleChange={handleChange}
-                input={input}
-                prop="description"
-                label="Property Description"
-            />
-            <AmenitiesGrioup 
-                amenities={input.amenities}
-                setAmenity={setAmmenity} 
-           
+            </div>
+            <div className="w-[90%] p-5 flex flex-row  items-center justify-center">
+            <ReactLeafletMapCard
+            coords={{lat:input.latitude,lng:input.longitude}}
+            setMapLocation={setMapLocation}
+                />
+            </div>
 
-            />
+
 
             {/* image input section  */}
             <div className="w-full  h-full flex flex-col items-center justify-center ">
@@ -192,9 +213,6 @@ return (
                 </div>
             </div>
         
-            
-
-
 
             {/* submit button*/}
             <PlainFormButton
@@ -208,10 +226,8 @@ return (
 
         <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
             {error?.message !== "" ? (
-                <div
-                    className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
-                        border-red-800 text-red-900  rounded-xl"
-                >
+                <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
+                        border-red-800 text-red-900  rounded-xl">
                     {error.message}
                 </div>
             ) : null}
@@ -220,22 +236,4 @@ return (
 );
 }
 
-//  check if an object has an empty values
-export function checkIfEmpty<T=unknown>(obj:T){
-    for (const key in obj) {
-        if (typeof obj[key as keyof T] ==="string" && obj[key as keyof T] === "") {
-            console.log(obj[key as keyof T] ,"  is empty")
-            return true;
-        }
-        if (typeof obj[key as keyof T] === "number" && obj[key as keyof T] === 0) {
-            console.log(obj[key as keyof T], "  is empty")
-            return true;
-        }
-        if (obj[key as keyof T] instanceof File  && obj[key as keyof T] ) {
-            console.log(obj[key as keyof T], "  is empty")
-            return true;
-        }
-    }
-    return false;
-}
 
