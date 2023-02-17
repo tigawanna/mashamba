@@ -31,6 +31,6 @@ body::-webkit-scrollbar-thumb {
 
 
 
-
+.scroll-bar{ @apply h-32 scrollbar-thin scrollbar-thumb-[#ff0000] scrollbar-track-gray-100 }
 
 

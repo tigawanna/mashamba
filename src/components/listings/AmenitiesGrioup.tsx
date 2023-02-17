@@ -1,11 +1,8 @@
 
 import { ListingAmenities } from "../../utils/api/listings";
 import Select from "react-select";
-import Creatable, { useCreatable } from 'react-select/creatable';
-import { useEffect, useState } from "react";
+import Creatable from 'react-select/creatable';
 import { Checkbox } from "@mantine/core";
-
-
 interface AmenitiesGrioupProps {
     amenities: ListingAmenities | null
     setAmenity: (key: keyof ListingAmenities, value:any) => void
@@ -24,11 +21,11 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
         { value: "house", label: "House" },
     ]
     const sizeOptions = [
-        { value: "50 * 100", label: "Small 50 * 100" },
-        { value: "100 * 200", label: "Medium 100 * 200" },
-        { value: "200 * 300", label: "Large 200 * 300" },
-        { value: "300 * 400", label: "Extra Large 300 * 400" },
-    ]
+        { value: "50 * 100", label: "50 * 100" },
+        { value: "100 * 200", label: "100 * 200" },
+        { value: "200 * 300", label: "200 * 300" },
+        { value: "300 * 400", label: "300 * 400" },
+]
     const waterSourceoptions = [
         { value: "piped", label: "Piped" },
         { value: "borehole", label: "Borehole" },
@@ -70,24 +67,16 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
         }
         return options[0]
     }
-    const isBoxChecked=(key:keyof ListingAmenities)=>{
-        console.log("is box checked === ",amenities[key])
-        if(amenities[key]!==undefined || amenities[key] !== null){
-            return amenities[key] as boolean
-        }
-        return false
-    }
-    // console.log("amenities ", amenities)
-
-
+   
     return (
-        <div className='w-full h-full flex flex-col gap-2 items-center justify-center'>
+        <div className='w-full h-full flex flex-col gap-2 items-center justify-center '>
 
             {/* property type */}
             <div className='w-full h-full flex flex-col gap-2 items-center justify-center'>
                 <div className="w-[84%]">Property Type</div>
                 <Select
                     options={landTypeOptions}
+                    onChange={(e)=>setAmenity("type",e?.value)}
                     defaultValue={getDefaultSelectValue("type", landTypeOptions)}
                     className="w-[85%]" />
             </div>
@@ -97,6 +86,7 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
             <div className='w-full h-full flex flex-col gap-2 items-center justify-center'>
                 <div className="w-[84%]">Size</div>
                 <Creatable isClearable
+                    onChange={(e) => setAmenity("size", e?.value)}
                     options={sizeOptions}
                     className="w-[85%]"
                     defaultValue={getDefaultSelectValue("size", sizeOptions)}
@@ -108,6 +98,7 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
             <div className='w-full h-full flex flex-col items-center justify-center'>
                 <div className="w-[84%]">Water</div>
                 <Creatable isMulti
+                    onChange={(e) => setAmenity("water_source", e?.reduce((acc,curr) => acc+" "+curr.value,""))}
                     options={waterSourceoptions}
                     defaultValue={getDefaultSelectValue("water_source", waterSourceoptions)}
                     className='w-[85%]'
@@ -119,20 +110,13 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
                 <div className="w-[84%]">Electricity</div>
                 <Creatable isMulti
                     options={elecSourceoptions}
+                    onChange={(e) => setAmenity("elecricity_source", e?.reduce((acc, curr) => acc + " " + curr.value, ""))}
                     defaultValue={getDefaultSelectValue("elecricity_source", elecSourceoptions)}
                     className='w-[85%]'
                 />
             </div>
 
-            {/* electrical source */}
-            <div className='w-full h-full flex flex-col items-center justify-center'>
-                <div className="w-[84%]">Electricity</div>
-                <Creatable isMulti
-                    options={elecSourceoptions}
-                    defaultValue={getDefaultSelectValue("elecricity_source", elecSourceoptions)}
-                    className='w-[85%]'
-                />
-            </div>
+
         
          {/* grouping  distance related*/}
             {
@@ -144,6 +128,7 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
 
                         <Select
                             options={facilityDisance}
+                            onChange={(e) => setAmenity(facility, e?.value)}
                             className="w-[85%]"
                             defaultValue={getDefaultSelectValue(facility, facilityDisance)}
                         />
@@ -151,6 +136,7 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
                 ))
             }
             
+     { amenities.type!=="land"?<>
             {/* grouoing the boolean options */}
             <div className='w-[85%] h-full flex flex-wrap items-center justify-center gap-2'>
             {
@@ -159,8 +145,10 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
                  <div 
                     key={opt}
                     className='w-fit p-2 gap-2 h-full flex items-center justify-center border rounded'>
-                        <div className="capitalize">{opt.replace(/_/g, " ")}</div>
-                        <Checkbox
+                        <div className="capitalize px-1">{opt.replace(/_/g, " ")}</div>
+                        <input
+                        type="checkbox"
+                        className="scale-125 "
                             checked={amenities[opt]}
                             onChange={(e) => { setAmenity(opt,e.target.checked)}}
 
@@ -178,9 +166,11 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
                         <div 
                         key={opt}
                         className='w-fit   h-full flex items-center justify-center border rounded'>
-                            <div className="capitalize min-w-fit">{opt.replace(/_/g, " ")} :</div>
+                            <div className="capitalize min-w-fit px-1">{opt.replace(/_/g, " ")} :</div>
                             <Select
+                                // className="scroll-bar h-fit"
                                 options={numberOfOptions}
+                                onChange={(e) => setAmenity(opt, e?.value)}
                                 defaultValue={getDefaultSelectValue(opt, numberOfOptions)}
                             />
                         </div>
@@ -189,11 +179,8 @@ export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) 
                 }
                 
             </div>
-
-        
-       
-
-        </div>
+        </>:null}
+    </div>
     );
 }
 
