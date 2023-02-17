@@ -8,7 +8,7 @@ interface AmenitiesGrioupProps {
     setAmenity: (key: keyof ListingAmenities, value:any) => void
 }
 
-export const AmenitiesGrioup = ({ amenities,setAmenity }: AmenitiesGrioupProps) => {
+export const AmenitiesGroup = ({ amenities,setAmenity }: AmenitiesGrioupProps) => {
 
 
     if (!amenities) {

@@ -8,9 +8,12 @@ import { ListingAmenities, PBListings } from "../../utils/api/listings";
 import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
 import { FormTextArea } from './../shared/form/FormTextArea';
-import { AmenitiesGrioup } from "./AmenitiesGrioup";
+import { AmenitiesGroup } from "./AmenitiesGroup";
 import ReactLeafletMapCard from "../location/ReactLeafletMapCard";
 import { checkIfEmpty } from "../../utils/helper/checkIfObjectHasemptyField";
+
+import { getOwner } from "../../utils/api/owner";
+import { SearchSelect } from "./SEarchSelect";
 
 
 
@@ -23,13 +26,14 @@ interface ListingsFormProps {
     setError: React.Dispatch<React.SetStateAction<{ name: string, message: string }>>;
 }
 
-export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:ListingsFormProps) => {
+ const ListingsForm = ({ label,mutation,input,setInput,error,setError }:ListingsFormProps) => {
 
 
 
 
     const [pic, setPic] = React.useState<File | string | null>();
     const fileInput = React.useRef<HTMLInputElement | null>(null);
+    
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         if ("files" in e.target && e.target.files) {
             setPic(e.target.files[0]);
@@ -59,6 +63,12 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
         setInput(prev => {
             return { ...prev,latitude:lat,longitude:lng }
         })   
+    }
+    const setOwner=(value:any)=>{
+        setInput(prev => {
+            return { ...prev,owner:value }
+        })
+        console.log("input ",input)
     }
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -91,7 +101,7 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
 
 
 
-console.log("check if emoty ",checkIfEmpty(input))
+
 return (
     <div
         className="w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
@@ -115,7 +125,7 @@ return (
                 prop="location"
                 label="Property location"
             />
-        
+       
 
             {/*  property dimensions */}
             <FormInput<ListingFormInputs>
@@ -127,13 +137,15 @@ return (
             />
 
             {/*  property owner */}
-            <FormInput<ListingFormInputs>
-                error={error}
-                handleChange={handleChange}
-                input={input}
-                prop="owner"
-                label="Property Owner"
-            />
+            <div className="w-[90%] gap-1 flex flex-col  items-center justify-center">
+                <label className="text-md capitalize  w-[100%] flex items-start">
+                    Property Owner
+                </label>
+            <SearchSelect gettterFunction={getOwner} setValue={setOwner} />
+            </div>
+
+
+
             {/*  property desciption input */}
             <FormTextArea<ListingFormInputs>
                 error={error}
@@ -143,7 +155,7 @@ return (
                 label="Property Description"
             />
             {/*  amenities sub form */}
-            <AmenitiesGrioup 
+            <AmenitiesGroup 
                 amenities={input.amenities}
                 setAmenity={setAmmenity} 
            />
@@ -237,3 +249,4 @@ return (
 }
 
 
+export default ListingsForm

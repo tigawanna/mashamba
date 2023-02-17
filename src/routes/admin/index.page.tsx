@@ -1,10 +1,13 @@
 // admin page
 import { useState } from 'react';
-import { ListingsForm } from './../../components/listings/ListingsForm';
-import { RequestContext, useServerSideMutation } from 'rakkasjs';
+// import { ListingsForm } from './../../components/listings/ListingsForm';
+import { ClientSuspense, RequestContext, useServerSideMutation } from 'rakkasjs';
 import { PBListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
 import { useGeoLocation } from './../../utils/hooks/useGeoLocation';
+
+import { lazy } from 'react'
+const ListingsForm = lazy(() => import('./../../components/listings/ListingsForm'));
 
 export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated">
 
@@ -102,6 +105,7 @@ export default function AdminPage() {
 
     return (
         <main className="w-full min-h-screen h-full flex flex-coljustify-center items-center">
+        <ClientSuspense fallback={'loading...'}>
           <ListingsForm
              label='Add New Listing' 
              mutation={mutation}
@@ -110,6 +114,7 @@ export default function AdminPage() {
              error={error}
              setError={setError}
             />
+        </ClientSuspense>
         </main>
     );
 }
