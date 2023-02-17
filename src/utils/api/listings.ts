@@ -13,18 +13,20 @@ export interface LandListingProps{
 
 }
 
+type DistanceTofaclities = "less than 20 minutes away"|"20 to 40 minutes away"|"more than 40 minutes away"
 
 export interface ListingAmenities{
-type:"land"|"house"|"apartment";
+type?:"land"|"house"|"apartment";
 size?:string;
 
 // land psecific
-water_source?:string;
-elecricity_source?:string;
-closest_school?:string;
-closest_hospital?:string;
-closest_police_station?:string;
-closest_town?:string;
+water_source?:"piped"|"borehole"|"other";
+elecricity_source?:"utility pole"|"generator"|"other";
+
+closest_school?:DistanceTofaclities;
+closest_hospital?:DistanceTofaclities;
+closest_police_station?:DistanceTofaclities;
+closest_town?:DistanceTofaclities;
 
 //  house or appartment specific
 gated_community?:boolean;

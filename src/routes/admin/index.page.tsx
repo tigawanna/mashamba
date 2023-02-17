@@ -22,11 +22,37 @@ export default function AdminPage() {
         phone: "",
         status: "",
         image: "",
-        amenities:{type:"land"},
+        amenities:{
+            type:"land",
+            size: "",
+
+            water_source:"piped",
+            elecricity_source: "utility pole",
+            
+            bathrooms:1,
+            bedrooms:1,
+            fireplace:1,
+            garages:1,
+            swimming_pool: 1,
+
+            closest_hospital: "less than 20 minutes away",
+            closest_police_station:"less than 20 minutes away",
+            closest_school:"less than 20 minutes away",
+            closest_town:"less than 20 minutes away",
+        
+            gated_community:false,
+            parking:false,
+            pavements:false,
+            street_lights:false,
+       
+         
+
+
+        },
         dimensions: "100 x 150",
         owner: ""
     });
-
+  console.log("input ===== ",input)
     
     async function saveListing(ctx: RequestContext,input: ListingFormInputs){
         console.log("request ctx ",ctx)

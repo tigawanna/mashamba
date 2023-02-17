@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { PlainFormButton } from "../shared/form/FormButton";
 import { TheIcon } from "../shared/wrappers/TheIcon";
-import { PBListings } from "../../utils/api/listings";
+import { ListingAmenities, PBListings } from "../../utils/api/listings";
 import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
 import { FormTextArea } from './../shared/form/FormTextArea';
@@ -14,7 +14,7 @@ import { AmenitiesGrioup } from "./AmenitiesGrioup";
 
 interface ListingsFormProps {
     mutation: UseMutationResult<PBListings, ListingFormInputs>
-     label: string;
+    label: string;
     input: ListingFormInputs;
     setInput: React.Dispatch<React.SetStateAction<ListingFormInputs>>;
     error: { name: string, message: string };
@@ -43,6 +43,16 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
             setError({ name: "", message: "" });
         }
     };
+    
+    const setAmmenity = (key: keyof ListingAmenities,value:any)=>{
+        console.log("updationg k,v ",key,value)
+        if(key!==undefined && key!==null ){
+            setInput(prev => {
+                return { ...prev, amenities: { ...prev.amenities, [key]:value } }
+            })
+        }
+    }
+
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -74,7 +84,7 @@ export const ListingsForm = ({ label,mutation,input,setInput,error,setError }:Li
 
 
 
-    console.log("check if emoty ",checkIfEmpty(input))
+console.log("check if emoty ",checkIfEmpty(input))
 return (
     <div
         className="w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
@@ -138,7 +148,12 @@ return (
                 prop="description"
                 label="Property Description"
             />
-            <AmenitiesGrioup amenities={input.amenities} />
+            <AmenitiesGrioup 
+                amenities={input.amenities}
+                setAmenity={setAmmenity} 
+           
+
+            />
 
             {/* image input section  */}
             <div className="w-full  h-full flex flex-col items-center justify-center ">
