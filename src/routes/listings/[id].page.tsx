@@ -1,13 +1,11 @@
 import { Page, PageProps, useServerSideQuery } from "rakkasjs";
 import { getOneListing } from "../../utils/api/listings";
-import { Location } from "../../components/location/Location";
+import ReactLeafletMapCard from "../../components/location/ReactLeafletMapCard";
 
 
 const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
 
-
-    // console.log("land id ====> ",params)
-    const land_id= parseInt(params.id)
+const land_id= parseInt(params.id)
 
     const { data, refetch } = useServerSideQuery(
         () => {
@@ -56,7 +54,12 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                 </div>
 
                 <div className="w-full">
-                    <Location display={false} coords={{ lat: land.longitude, lng: land.longitude }} />
+             
+                    <div className="w-[90%] p-5 flex flex-row  items-center justify-center">
+                        <ReactLeafletMapCard
+                            display={false} coords={{ lat: land.longitude, lng: land.longitude }}
+                        />
+                    </div>
                 </div>
 
 

@@ -53,13 +53,9 @@ export interface PBListings{
   longitude: number
   latitude: number
   description: string
-  phone: string
-  status: string
-  image1: string | File | null
-  image2: string | File | null
-  image3: string | File | null
+  status:"avalilabe"|"sold"
+  images: (string | File | null)[]
   amenities:ListingAmenities|null
-  dimensions: string
   owner: string
 }
 

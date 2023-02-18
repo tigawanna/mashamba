@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css'
 interface ReactLeafletMapCardProps {
  coords:{lat:number ; lng: number}
  display?:boolean
- setMapLocation:(lat:number,lng:number)=>void
+ setMapLocation?:(lat:number,lng:number)=>void
 }
 
 
@@ -19,7 +19,7 @@ const [zoom,SetZoom]=useState(20)
 
 const onClickMarker = (e:any)=>{
     // console.log("map marker event === ",e.target._latlng)
-    setMapLocation(e.target._latlng.lat,e.target._latlng.lng)
+    setMapLocation&&setMapLocation(e.target._latlng.lat,e.target._latlng.lng)
 }
 // console.log("geolocation", geolocation)
 return (

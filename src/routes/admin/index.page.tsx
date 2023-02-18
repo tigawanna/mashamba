@@ -1,12 +1,13 @@
 // admin page
 import { useState } from 'react';
 // import { ListingsForm } from './../../components/listings/ListingsForm';
-import { ClientSuspense, RequestContext, useServerSideMutation } from 'rakkasjs';
+import { ClientSuspense, useMutation} from 'rakkasjs';
 import { PBListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
 import { useGeoLocation } from './../../utils/hooks/useGeoLocation';
 
 import { lazy } from 'react'
+import { pb } from '../../utils/api/pocketbase';
 const ListingsForm = lazy(() => import('./../../components/listings/ListingsForm'));
 
 export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated">
@@ -22,9 +23,9 @@ export default function AdminPage() {
         longitude: position.lng,
         latitude: position.lat,
         description: "Be descriptive, but don’t go over the top with your praise. Remember, people can tell when you’re trying too hard. For example, we all know “cozy” is code for “very small.” Your real estate listing description is your chance to get creative and paint a picture of your listing. Adding too many extra adjectives will make the readers assume you’re trying to distract them from reality.",
-        phone: "",
-        status: "",
-        image: "",
+
+        status: "avalilabe",
+        images:[],
         amenities:{
             type:"land",
             size: "",
@@ -46,60 +47,72 @@ export default function AdminPage() {
             gated_community:false,
             parking:false,
             pavements:false,
-            street_lights:false,
-       
-         
-
-
+            street_lights:false
         },
-        dimensions: "100 x 150",
+   
         owner: ""
     });
 //   console.log("input ===== ",input)
     
-    async function saveListing(ctx: RequestContext,input: ListingFormInputs){
-        console.log("request ctx ",ctx)
+    async function saveListing(input: ListingFormInputs){
+    //   console.log("input on fetch === ",input)
+        const excludeKeys = ['amenities','images']
+
         const formdata = new FormData();
-        if (input?.image && input.image instanceof File) {
-            formdata.append("image", input?.image);
+        if(input.images){
+            input.images?.forEach(image=>{
+                formdata.append('images',image as Blob)
+            })
+        }
+        // if(input.description){
+        //     formdata.append('description', encodeURIComponent(input.description))
+        // }
+        // if (input?.image1 && input.image1 instanceof File) {
+        //     formdata.append("image1", input?.image1);
+        // }
+        // if (input?.image2 && input.image2 instanceof File) {
+        //     formdata.append("other_images", input?.image2);
+        // }
+        // if (input?.image3 && input.image3 instanceof File) {
+        //     formdata.append("other_images", input?.image3);
+        // }
+        // if (input?.image4 && input.image4 instanceof File) {
+        //     formdata.append("other_images", input?.image4);
+        // }
+        if(input.amenities){
+            formdata.append("amenities", JSON.stringify(input.amenities));
         }
         for (const key in input) {
-            if (key !== "image" && input[key as keyof typeof input] !== "") {
+            if (!excludeKeys.includes(key) && input[key as keyof typeof input] !== "") {
                 // @ts-expect-error
                 formdata.append(key, input[key]);
             }
         }
-        const res = await fetch('/api/listings',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-                ' Authorization:TOKEN':''
-            },
-            body:JSON.stringify(formdata)
-        })
-        return await res.json() as PBListings
+        const res = await pb.collection('listings').create<PBListings>(formdata);
+        // console.log("res ==== ",res)
+        return res
     } 
 
-    const mutation = useServerSideMutation<PBListings,ListingFormInputs>((ctx,input)=>saveListing(ctx,input),{
-        
+    const mutation = useMutation<PBListings,ListingFormInputs>(
+        (input)=>saveListing(input),
+        { 
         onSuccess:()=>{
-       
-            setOpen(false)
-            setInput({
-             location: "",
-             longitude: 0,
-             latitude: 0,
-             description: "",
-             phone: "",
-             status: "",
-             image: "",
-             amenities:null,
-             dimensions: "",
-             owner: ""
-            })
+        //  setOpen(false)
+            // setInput({
+            //  location: "",
+            //  longitude: 0,
+            //  latitude: 0,
+            //  description: "",
+            //  status: "avalilabe",
+            //  images:[],
+            //  amenities:null,
+            //  owner: ""
+            // })
+                setError({ name: "main", message:"" });
 
-        },onError:()=>{
-            setError({ name: "", message:concatErrors(error)});
+        },onError:(err)=>{
+            console.log("rakkas useMutaion error  === ",err)
+            setError({ name: "main", message:concatErrors(err)});
         }
     })
 

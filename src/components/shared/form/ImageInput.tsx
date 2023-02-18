@@ -2,26 +2,32 @@ import { useEffect, useRef, useState } from "react";
 import { TheIcon } from "../wrappers/TheIcon";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
+import { ListingFormInputs } from "../../../routes/admin/index.page";
 
 interface ImageInputProps<T> {
     label: string;
     error: { name: string; message: string }
-    input: T
-    setInput: React.Dispatch<React.SetStateAction<T>>
-    image_keys: (keyof T)[]
+    input: ListingFormInputs
+    setInput: React.Dispatch<React.SetStateAction<ListingFormInputs>>
+    prop: keyof ListingFormInputs
+    max_images?: number
 }
 
-export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<T>) => {
-    const [pics, setPics] = useState<File[] | null | undefined>();
-    const fileInput = useRef<HTMLInputElement | null>(null);
+export const ImageInput = <T,>({ input,label, prop, setInput,max_images=2}: ImageInputProps<T>) => {
+    const img_arr = new Array<File[] | null | undefined>(input[prop] as File[] | null | undefined)
 
+    const [pics, setPics] = useState<File[] | null | undefined>(input[prop] as File[] | null | undefined);
+    const fileInput = useRef<HTMLInputElement | null>(null);
+    
     const clearImage = (idx: number) => {
+
         setPics(prev => {
             prev?.splice(idx, 1)
             return prev
         });
         setInput(prev => {
-            return { ...prev, [image_keys[idx]]: null }
+            // @ts-expect-error
+            return { ...prev, [prop]: prev[prop]?.splice(idx, 1)}
         })
     };
 
@@ -29,23 +35,19 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
         if (e.target.files) {
             const allImgs = [...e.target.files]
             setPics(prev => {
-                if (prev && prev.length < image_keys.length) {
-                    return [...prev, ...allImgs].slice(0, image_keys.length)
+                if (prev && prev.length < max_images) {
+                    return [...prev, ...allImgs].slice(0, max_images)
                 }
-                return allImgs.slice(0, image_keys.length)
+                return allImgs.slice(0, max_images)
             });
         }
     };
 
     useEffect(() => {
         if (pics) {
-            pics.forEach((p, idx) => {
-                if (idx <= image_keys.length - 1)
-                    setInput(prev => {
-                        return { ...prev, [image_keys[idx]]: p }
-                    })
-            })
-        }
+            setInput(prev => {
+                return { ...prev, [prop]: pics }
+            })}
     }, [pics])
 
     // console.log("input ==== ",input)
@@ -57,7 +59,7 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
             </label>
             {/* <input className="hidden" {...register('user')}/> */}
             <input className="hidden" ref={fileInput} type="file" 
-            multiple max={image_keys.length} onChange={handleChange} />
+                multiple max={img_arr?.length} onChange={handleChange} />
 
 
             {pics && typeof pics === "object" ? (

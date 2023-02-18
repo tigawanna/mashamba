@@ -1,9 +1,6 @@
 import { UseMutationResult } from "rakkasjs";
 import React  from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { BiImageAdd } from "react-icons/bi";
 import { PlainFormButton } from "../shared/form/FormButton";
-import { TheIcon } from "../shared/wrappers/TheIcon";
 import { ListingAmenities, PBListings } from "../../utils/api/listings";
 import { ListingFormInputs } from "../../routes/admin/index.page";
 import { FormInput } from "../shared/form/FormInput";
@@ -11,7 +8,7 @@ import { FormTextArea } from './../shared/form/FormTextArea';
 import { AmenitiesGroup } from "./AmenitiesGroup";
 import ReactLeafletMapCard from "../location/ReactLeafletMapCard";
 import { checkIfEmpty } from "../../utils/helper/checkIfObjectHasemptyField";
-
+import Select from 'react-select'
 import { getOwner } from "../../utils/api/owner";
 import { SearchSelect } from "./SearchSelect";
 import { ImageInput } from './../shared/form/ImageInput';
@@ -40,7 +37,7 @@ interface ListingsFormProps {
     };
     
     const setAmmenity = (key: keyof ListingAmenities,value:any)=>{
-        console.log("updationg k,v ",key,value)
+        // console.log("updationg k,v ",key,value)
         if(key!==undefined && key!==null ){
             setInput(prev => {
                 return { ...prev, amenities: { ...prev.amenities, [key]:value } }
@@ -57,11 +54,12 @@ interface ListingsFormProps {
         setInput(prev => {
             return { ...prev,owner:value }
         })
-        console.log("input ",input)
+        // console.log("input ",input)
     }
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log("about to save ",input)
         mutation.mutate(input);
     };
     // const isError = (err: typeof error, label: keyof ListingFormInputs) => {
@@ -80,7 +78,10 @@ interface ListingsFormProps {
     // };
 
 
-
+const StatusOptions=[
+    {label:"Available",value:"available"},
+    {label:"Sold",value:"sold"},
+]
 
 
 
@@ -112,16 +113,20 @@ return (
                 prop="location"
                 label="Property location"
             />
-       
+            {/*  property owner */}
+            <div className="w-[90%] gap-1 py-2 flex flex-col  items-center justify-center">
+             <Select options={StatusOptions} defaultValue={StatusOptions[0]} 
+             className="w-full"
+             onChange={
+                (value=>{
+                setInput(prev => {
+                return { ...prev,status:value?.value==="sold"?"sold":"avalilabe" }
+                })
+                })}/>
+            </div>
 
-            {/*  property dimensions */}
-            <FormInput<ListingFormInputs>
-                error={error}
-                handleChange={handleChange}
-                input={input}
-                prop="dimensions"
-                label="Property dimensions"
-            />
+
+             
 
             {/*  property owner */}
             <div className="w-[90%] gap-1 py-2 flex flex-col  items-center justify-center">
@@ -180,8 +185,9 @@ return (
                 error={error}
                 setInput={setInput}
                 input={input}
-                image_keys={["image1", "image2", "image3"]}
+                prop={"images"}
                 label="Property Images"
+                max_images={5}
             />
         
 
