@@ -30,19 +30,7 @@ interface ListingsFormProps {
  const ListingsForm = ({ label,mutation,input,setInput,error,setError }:ListingsFormProps) => {
 
 
-
-
-    const [pic, setPic] = React.useState<File | string | null>();
-    const fileInput = React.useRef<HTMLInputElement | null>(null);
-    
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        if ("files" in e.target && e.target.files) {
-            setPic(e.target.files[0]);
-            // @ts-expect-error
-            setInput(prev => { return { ...prev, image: e.target.files[0] };
-            });
-        }
-
         setInput(prev => {
             return { ...prev, [e.target.id]: e.target.value };
         });
@@ -91,13 +79,7 @@ interface ListingsFormProps {
     //     return false;
     // };
 
-    const clearImage = () => {
-        setPic(null);
-        setInput(prev => { return { ...prev, image: null }});
-        if (error.message !== "" || error.name !== "") {
-            setError({ name: "", message: "" });
-        }
-    };
+
 
 
 
@@ -119,13 +101,7 @@ return (
             </div>
 
 
-                <ImageInput 
-                error={error}
-                setInput={setInput}
-                input={input}
-                image_keys={["image","maige2","image3"]}
-                label="Property location"
-                            />
+
 
             {/* location */}
             {/* property location */}
@@ -200,42 +176,13 @@ return (
 
 
             {/* image input section  */}
-            <div className="w-full  h-full flex flex-col items-center justify-center ">
-                {/* <input className="hidden" {...register('user')}/> */}
-                <input className="hidden" ref={fileInput} type="file" onChange={handleChange} />
-
-    
-                {pic && typeof pic === "object" ? (
-                    <div className="w-full flex flex-col items-center justify-center">
-                        <div className="w-[90%] flex items-center justify-end">
-                            <TheIcon
-                                Icon={AiOutlineCloseCircle}
-                                size={"25"}
-                                iconAction={() => clearImage()}
-                            />
-                        </div>
-                        <img height="200" width="200"
-                            src={URL.createObjectURL(pic as Blob)}
-                            className="max-h-[200px] rounded-lg"
-                        />
-                    </div>
-                ) : null}
-
-                {pic && typeof pic === "string" ? (
-                    <img src={pic} height="200" width="200"
-                    className="w-[80%] max-h-[300px] rounded-lg" />
-                ) : null}
-                <div
-                    // onClick={(event) => event.stopPropagation()}
-                    className="w-[90%]"
-                >
-                    <TheIcon
-                        Icon={BiImageAdd}
-                        size={"30"}
-                        iconAction={() => fileInput.current?.click()}
-                    />
-                </div>
-            </div>
+            <ImageInput
+                error={error}
+                setInput={setInput}
+                input={input}
+                image_keys={["image1", "image2", "image3"]}
+                label="Property Images"
+            />
         
 
             {/* submit button*/}

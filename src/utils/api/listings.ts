@@ -55,7 +55,9 @@ export interface PBListings{
   description: string
   phone: string
   status: string
-  image: string| File| null
+  image1: string | File | null
+  image2: string | File | null
+  image3: string | File | null
   amenities:ListingAmenities|null
   dimensions: string
   owner: string
