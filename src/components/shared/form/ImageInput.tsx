@@ -12,11 +12,11 @@ interface ImageInputProps<T> {
 }
 
 export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<T>) => {
-    const [pic, setPic] = useState<File[] | null | undefined>();
+    const [pics, setPics] = useState<File[] | null | undefined>();
     const fileInput = useRef<HTMLInputElement | null>(null);
 
     const clearImage = (idx: number) => {
-        setPic(prev => {
+        setPics(prev => {
             prev?.splice(idx, 1)
             return prev
         });
@@ -28,7 +28,7 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const allImgs = [...e.target.files]
-            setPic(prev => {
+            setPics(prev => {
                 if (prev && prev.length < image_keys.length) {
                     return [...prev, ...allImgs].slice(0, image_keys.length)
                 }
@@ -38,15 +38,15 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
     };
 
     useEffect(() => {
-        if (pic) {
-            pic.forEach((p, idx) => {
+        if (pics) {
+            pics.forEach((p, idx) => {
                 if (idx <= image_keys.length - 1)
                     setInput(prev => {
                         return { ...prev, [image_keys[idx]]: p }
                     })
             })
         }
-    }, [pic])
+    }, [pics])
 
     // console.log("input ==== ",input)
     return (
@@ -60,11 +60,11 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
             multiple max={image_keys.length} onChange={handleChange} />
 
 
-            {pic && typeof pic === "object" ? (
+            {pics && typeof pics === "object" ? (
                 <div className="w-full flex flex-col items-center justify-center">
                     <div className="w-[90%] flex flex-wrap gap-1 items-center ">
                         {
-                            pic.map((file: Blob, index) => {
+                            pics.map((file: Blob, index) => {
                                 return (
                                     <div
                                         key={index}
@@ -89,8 +89,8 @@ export const ImageInput = <T,>({ label, image_keys, setInput }: ImageInputProps<
                 </div>
             ) : null}
 
-            {pic && typeof pic === "string" ? (
-                <img src={pic} height="200" width="200"
+            {pics && typeof pics === "string" ? (
+                <img src={pics} height="200" width="200"
                     className="w-[80%] max-h-[300px] rounded-lg" />
             ) : null}
             <div className="w-[90%]">
