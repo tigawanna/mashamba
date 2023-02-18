@@ -13,7 +13,8 @@ import ReactLeafletMapCard from "../location/ReactLeafletMapCard";
 import { checkIfEmpty } from "../../utils/helper/checkIfObjectHasemptyField";
 
 import { getOwner } from "../../utils/api/owner";
-import { SearchSelect } from "./SEarchSelect";
+import { SearchSelect } from "./SearchSelect";
+import { ImageInput } from './../shared/form/ImageInput';
 
 
 
@@ -116,6 +117,16 @@ return (
             <div className="w-[95%]  text-xl font-bold text-center p-2">
                 {label}
             </div>
+
+
+                <ImageInput 
+                error={error}
+                setInput={setInput}
+                input={input}
+                image_keys={["image","maige2","image3"]}
+                label="Property location"
+                            />
+
             {/* location */}
             {/* property location */}
             <FormInput<ListingFormInputs>
@@ -137,7 +148,7 @@ return (
             />
 
             {/*  property owner */}
-            <div className="w-[90%] gap-1 flex flex-col  items-center justify-center">
+            <div className="w-[90%] gap-1 py-2 flex flex-col  items-center justify-center">
                 <label className="text-md capitalize  w-[100%] flex items-start">
                     Property Owner
                 </label>
@@ -203,7 +214,7 @@ return (
                                 iconAction={() => clearImage()}
                             />
                         </div>
-                        <img
+                        <img height="200" width="200"
                             src={URL.createObjectURL(pic as Blob)}
                             className="max-h-[200px] rounded-lg"
                         />
@@ -211,7 +222,8 @@ return (
                 ) : null}
 
                 {pic && typeof pic === "string" ? (
-                    <img src={pic} className="w-[80%] max-h-[300px] rounded-lg" />
+                    <img src={pic} height="200" width="200"
+                    className="w-[80%] max-h-[300px] rounded-lg" />
                 ) : null}
                 <div
                     // onClick={(event) => event.stopPropagation()}

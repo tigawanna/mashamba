@@ -20,7 +20,7 @@ export const useGeoLocation = () => {
         }
         const promise = new Promise(resolver);
         promise.then((position) => {
-            console.log("position ===>  ",position)
+            // console.log("position ===>  ",position)
            setGeoLoaction(position)
         })
         .catch((error) => {

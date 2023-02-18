@@ -55,7 +55,7 @@ export default function AdminPage() {
         dimensions: "100 x 150",
         owner: ""
     });
-  console.log("input ===== ",input)
+//   console.log("input ===== ",input)
     
     async function saveListing(ctx: RequestContext,input: ListingFormInputs){
         console.log("request ctx ",ctx)
@@ -104,7 +104,7 @@ export default function AdminPage() {
     })
 
     return (
-        <main className="w-full min-h-screen h-full flex flex-coljustify-center items-center">
+        <main className="w-full min-h-screen h-full flex flex-col justify-center items-center">
         <ClientSuspense fallback={'loading...'}>
           <ListingsForm
              label='Add New Listing' 

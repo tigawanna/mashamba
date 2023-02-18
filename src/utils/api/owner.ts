@@ -26,21 +26,53 @@ export interface OwnerResponse {
 
 
 
+export interface AllOwnersResponse {
+  collectionId: string
+  collectionName: string
+  created: string
+  email: string
+  id: string
+  image: string
+  location: string
+  name: string
+  phone: string
+  updated: string
+  whatsapp: string
+
+  value:string;
+  label:string;
+
+  expand:{}
+}
+
+
+
+
 export async function getOwner(keyword:string) {
     try {
-        const record = await pb.collection('owner').getFirstListItem(`name~"${keyword}"`, { })
-        console.log("record", record)
-        if(record.code === 400){
-            throw new Error("failed to search for owner",record.message)
-        }
-        record['value']=record.id
-        record['label']=record.name
-        // @ts-expect-error
-        const ownerArr = new Array<OwnerResponse>(record)
-        return  ownerArr
 
-    } catch (error) {
-        throw error
+      // you can also fetch all records at once via getFullList
+      const records = await pb.collection('owner').getFullList<AllOwnersResponse>(10 /* batch size */, {
+            sort:'-created',filter:`name~"${keyword}"`
+      });
+      
+        // const record = await pb.collection('owner').getFirstListItem(`name~"${keyword}"`, { })
+      // console.log("records ===== ", records)
+        // if(records.code === 400){
+        //     throw new Error("failed to search for owner",record.message)
+        // }
+
+    return records.map((record:AllOwnersResponse) => {
+         record['value']=record.id
+         record['label']=record.name
+         return record
+      })
+
+
+
+    } catch (error:any) {
+     console.log("error", error)
+     throw new Error(error)
     }
 }
 

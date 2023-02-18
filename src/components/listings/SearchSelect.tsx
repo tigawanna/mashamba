@@ -9,8 +9,8 @@ interface SearchOwnerProps {
 export const SearchSelect = ({gettterFunction,setValue}:SearchOwnerProps) => {
     const loadOptions = (inputValue: string,callback: (options: any[]) => void) => {
         setTimeout(async() => {
-            callback(await gettterFunction(inputValue));
-        }, 2000);
+            callback(await gettterFunction(inputValue??" "));
+        }, 200);
     };
 return (
 
