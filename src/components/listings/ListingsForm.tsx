@@ -59,7 +59,7 @@ interface ListingsFormProps {
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("about to save ",input)
+        // console.log("about to save ",input)
         mutation.mutate(input);
     };
     // const isError = (err: typeof error, label: keyof ListingFormInputs) => {
@@ -120,7 +120,7 @@ return (
              onChange={
                 (value=>{
                 setInput(prev => {
-                return { ...prev,status:value?.value==="sold"?"sold":"avalilabe" }
+                return { ...prev,status:value?.value==="sold"?"sold":"available" }
                 })
                 })}/>
             </div>
@@ -190,10 +190,17 @@ return (
                 max_images={5}
             />
         
-
+            <div className="w-[90%] flex  flex-col items-center justify-center">
+                {checkIfEmpty(input).empty ? (
+                    <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-b-2 
+                        border-red-800 text-red-900  rounded-xl">
+                        {checkIfEmpty(input).value}
+                    </div>
+                ) : null}
+            </div>
             {/* submit button*/}
             <PlainFormButton
-                disabled={checkIfEmpty(input)}
+                disabled={checkIfEmpty(input).empty}
                 isSubmitting={mutation.isLoading}
                 label={label}
             />

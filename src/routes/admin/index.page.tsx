@@ -14,17 +14,14 @@ export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collec
 
 export default function AdminPage() {
     const { position } = useGeoLocation();
-
     const [error, setError] = useState({ name: "", message: "" });
-
-
     const [input, setInput] = useState<ListingFormInputs>({
-        location: "Location",
+        location: "",
         longitude: position.lng,
         latitude: position.lat,
-        description: "Be descriptive, but don’t go over the top with your praise. Remember, people can tell when you’re trying too hard. For example, we all know “cozy” is code for “very small.” Your real estate listing description is your chance to get creative and paint a picture of your listing. Adding too many extra adjectives will make the readers assume you’re trying to distract them from reality.",
+        description: "",
 
-        status: "avalilabe",
+        status: "available",
         images:[],
         amenities:{
             type:"land",
@@ -108,7 +105,7 @@ export default function AdminPage() {
             //  amenities:null,
             //  owner: ""
             // })
-                setError({ name: "main", message:"" });
+                setError({ name: "", message:"" });
 
         },onError:(err)=>{
             console.log("rakkas useMutaion error  === ",err)

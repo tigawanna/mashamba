@@ -8,7 +8,7 @@ import { GrNext, GrPrevious } from 'react-icons/gr/index.js'
 import { lazy } from 'react';
 const ReactLeafletMapCard = lazy(() => import('../../components/location/ReactLeafletMapCard'));
 import { useState } from 'react';
-import { useEffect } from 'react';
+
 
 const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
 
@@ -39,9 +39,9 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                 
                 <div
                     key={land.id}
-                    className="w-[90%]  flex flex-wrap items-center justify-center rounded-2xl m-2">
+                    className="w-[90%]  flex flex-col md:flex-row  items-center justify-center rounded-2xl m-2">
 
-                    <div className="w-[50%] h-[50%] flex items-center justify-center gap-2 ">
+                    <div className=" w-[90%] md:w-[50%] h-[50%] flex items-center justify-center gap-2 ">
                         {image.idx !== 0 ?
                             <TheIcon Icon={GrPrevious} iconAction={() => {
                                 setImage((prev) => {
@@ -53,7 +53,9 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                             }} /> :
                             null}
                         <img className='h-auto w-[90%] rounded aspect-video'
-                            src={makeImageUrl('listings', land.id, image.img as string) + '?thumb=100x100'}
+                            src={makeImageUrl('listings', land.id, image.img as string) 
+                            // + '?thumb=100x100'
+                        }
                             alt={land.location}
                             height={'200px'} width={'200px'} />
                         {image.idx !== data.items[0].images.length - 1 ? 
@@ -71,7 +73,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                     </div>
 
      
-                   <div className="font-serif p-3 w-[45%]">
+                    <div className="font-serif p-5 w-[90%] md:w-[40%]">
                         <h1 className='text-2xl font-bold'>{land.location}</h1>
                         <p className='text-sm'>{land.description}</p>
                         <div className="border-t ">

@@ -1,7 +1,7 @@
-import { Link, QueryResult, useServerSideQuery } from "rakkasjs";
-import { PBListings, getListsings, getPbListings } from './../../utils/api/listings';
+import { Link,  useServerSideQuery } from "rakkasjs";
+import { getPbListings } from './../../utils/api/listings';
 import { makeImageUrl } from './../../utils/api/pocketbase';
-import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa/index.js";
 import { TheIcon } from "../shared/wrappers/TheIcon";
 
 interface ListingsProps {
@@ -25,7 +25,10 @@ export const Listings = ({}:ListingsProps) => {
             refetchOnReconnect: true,
         });
 
-console.log("listings === ",data)
+// console.log("listings === ",data)
+if(!data){
+    return <div className="w-full h-full flex items-center justify-center">loading</div>
+}
 return (
  <div className='w-full h-full flex items-center justify-center'>
     <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-2 lg:gap-4">
@@ -37,9 +40,11 @@ return (
                 className=" w-full  flex flex-col items-start 
                 shadow-lg border hover:shadow-lg  hover:shadow-slate-300 rounded-2xl ">
                     
-                    <div className=" w-[80%] ">
+                    <div className=" full flex items-center justify-center ">
                     <img className=' h-auto w-full rounded-t-2xl object-cover'
-                        src={makeImageUrl('listings',land.id,land?.images[0] as string)+'?thumb=100x100'}
+                        src={makeImageUrl('listings',land.id,land?.images[0] as string)
+                        // +'?thumb=100x100'
+                    }
                         alt={land.location}
                           height={'200px'}
                          width={'200px'}

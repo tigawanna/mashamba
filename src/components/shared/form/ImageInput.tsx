@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { TheIcon } from "../wrappers/TheIcon";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { BiImageAdd } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai/index.js";
+import { BiImageAdd } from "react-icons/bi/index.js";
 import { ListingFormInputs } from "../../../routes/admin/index.page";
 
 interface ImageInputProps<T> {

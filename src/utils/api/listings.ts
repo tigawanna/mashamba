@@ -67,7 +67,7 @@ export interface PBListings{
   longitude: number
   latitude: number
   description: string
-  status:"avalilabe"|"sold"
+  status:"available"|"sold"
   images: (string | File | null)[]
   amenities:ListingAmenities|null
   owner?:string

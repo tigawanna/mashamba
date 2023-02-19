@@ -1,6 +1,9 @@
 import PocketBase from 'pocketbase';
 
-export const base_url='http://127.0.0.1:8090'
+const remote_pb = 'https://tigawanna-pocketbase.fly.dev'
+const local_pb ='http://127.0.0.1:8090'
+export const base_url=remote_pb
+
 // console.log("base_url  ==== ",base_url)
 export const pb = new PocketBase(base_url);
 

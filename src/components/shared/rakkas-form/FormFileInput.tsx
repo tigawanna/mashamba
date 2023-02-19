@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai/index.js";
 import { TheIcon } from "../wrappers/TheIcon";
-import { BiImageAdd } from "react-icons/bi";
+import { BiImageAdd } from "react-icons/bi/index.js";
 
 
 
