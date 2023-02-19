@@ -21,9 +21,10 @@ body::-webkit-scrollbar-track {
 }
  
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(112, 161, 32);
+  background-color: rgb(70, 40, 100);
 
 }
+
 
 @tailwind base;
 @tailwind components;

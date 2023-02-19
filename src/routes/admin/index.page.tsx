@@ -10,11 +10,11 @@ import { lazy } from 'react'
 import { pb } from '../../utils/api/pocketbase';
 const ListingsForm = lazy(() => import('./../../components/listings/ListingsForm'));
 
-export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated">
+export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated" |"expand">
 
 export default function AdminPage() {
     const { position } = useGeoLocation();
-    const [open, setOpen] = useState(false)
+
     const [error, setError] = useState({ name: "", message: "" });
 
 
