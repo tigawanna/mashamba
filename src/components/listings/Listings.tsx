@@ -9,8 +9,6 @@ interface ListingsProps {
 }
 
 
-
-
 export const Listings = ({}:ListingsProps) => {
 
     const { data, refetch } = useServerSideQuery(
@@ -43,7 +41,7 @@ return (
                     <div className=" full flex items-center justify-center ">
                     <img className=' h-auto w-full rounded-t-2xl object-cover'
                         src={makeImageUrl('listings',land.id,land?.images[0] as string)
-                        // +'?thumb=100x100'
+                        +'?thumb=100x100'
                     }
                         alt={land.location}
                           height={'200px'}
