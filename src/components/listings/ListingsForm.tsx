@@ -62,20 +62,7 @@ interface ListingsFormProps {
         // console.log("about to save ",input)
         mutation.mutate(input);
     };
-    // const isError = (err: typeof error, label: keyof ListingFormInputs) => {
-    //     if (err.name === label && err.message !== "") {
-    //         return true;
-    //     }
-    //     return false;
-    // };
 
-    // const disableButton = (vals: typeof input) => {
-    //     // //no-console("input === ",input)
-    //     if (checkIfEmpty(vals)) {
-    //         return true;
-    //     }
-    //     return false;
-    // };
 
 
 const StatusOptions=[

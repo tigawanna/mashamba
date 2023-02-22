@@ -3,6 +3,7 @@ import { getPbListings } from './../../utils/api/listings';
 import { makeImageUrl } from './../../utils/api/pocketbase';
 import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa/index.js";
 import { TheIcon } from "../shared/wrappers/TheIcon";
+import { GoodImage } from "../shared/wrappers/GoodImage";
 
 interface ListingsProps {
 
@@ -29,24 +30,44 @@ if(!data){
 }
 return (
  <div className='w-full h-full flex items-center justify-center'>
-    <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-2 lg:gap-4">
+<div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-2 lg:gap-4">
 {
     data&&data?.items.map((land)=>{
+        const img_url = makeImageUrl('listings',land.id,land.images[0] as string);
+        
         return (
         <Link  href={`/listings/${land.id}`}
                 key={land.id}
                 className=" w-full  flex flex-col items-start 
                 shadow-lg border hover:shadow-lg  hover:shadow-slate-300 rounded-2xl ">
                     
-                    <div className=" full flex items-center justify-center ">
-                    <img className=' h-auto w-full rounded-t-2xl object-cover'
+            <div className=" h-full w-full flex items-center justify-center relative">
+          {land.status ==="sold"?
+          <div className="w-full h-full absolute font-bold font-serif
+                    flex items-center justify-center  text-6xl  ">
+                    SOLD
+                  </div>:null}
+                        <GoodImage
+                            props={{
+                            src: img_url as string,
+                                alt:land?.location,
+                            }}
+                            placeholderSrc={
+                            img_url ?img_url+'?thumb=100x50':undefined
+                            }
+                            height={'200px'}
+                            width={'300px'}
+                        />
+                  
+
+                    {/* <img className=' h-auto w-full rounded-t-2xl object-cover'
                         src={makeImageUrl('listings',land.id,land?.images[0] as string)
                         +'?thumb=100x100'
                     }
                         alt={land.location}
                           height={'200px'}
                          width={'200px'}
-                         />
+                         /> */}
                     </div>
 
                 

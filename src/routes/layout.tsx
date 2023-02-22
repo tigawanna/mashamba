@@ -20,6 +20,7 @@ const MainLayout: Layout = ({ children }) => {
     {/* Rakkas relies on react-helmet-async for managing the document head */}
     {/* See their documentation: https://github.com/staylor/react-helmet-async#readme */}
     <Head title="Real estates">
+        <html lang="en" />
       <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   </Head>
 

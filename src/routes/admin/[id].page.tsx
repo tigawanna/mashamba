@@ -1,54 +1,73 @@
 // admin page
 import { useState } from 'react';
 // import { ListingsForm } from './../../components/listings/ListingsForm';
-import { ClientSuspense, useMutation} from 'rakkasjs';
-import { PBListings } from '../../utils/api/listings';
+import { ClientSuspense, PageProps, useMutation, useServerSideQuery} from 'rakkasjs';
+import { PBListings, getPbListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
-import { useGeoLocation } from './../../utils/hooks/useGeoLocation';
+import { useGeoLocation } from '../../utils/hooks/useGeoLocation';
 import { lazy } from 'react'
 import { pb } from '../../utils/api/pocketbase';
-const ListingsForm = lazy(() => import('./../../components/listings/ListingsForm'));
+const ListingsForm = lazy(() => import('../../components/listings/ListingsForm'));
 
 export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated" |"expand">
 
-export default function AdminPage() {
+export default function AdminPage({ params }: PageProps) {
     const { position } = useGeoLocation();
     const [error, setError] = useState({ name: "", message: "" });
+
+    const { data, refetch } = useServerSideQuery(
+        () => {
+            if (typeof params.id !== "string") {
+                throw new Error("Invalid request , params.id must be of type string");
+            }
+            return getPbListings(params.id)
+        },
+        {
+            refetchOnWindowFocus: true,
+            refetchOnReconnect: true,
+    });
+
+    if (!data) {
+        return <div>Loading...</div>
+    }
+    const land = data.items[0]
     
-    const [input, setInput] = useState<ListingFormInputs>({
+    const defalut_input = {
         location: "",
         longitude: position.lng,
         latitude: position.lat,
         description: "",
 
         status: "available",
-        images:[],
-        amenities:{
-            type:"land",
+        images: [],
+        amenities: {
+            type: "land",
             size: "",
 
-            water_source:"piped",
+            water_source: "piped",
             elecricity_source: "utility pole",
-            
-            bathrooms:1,
-            bedrooms:1,
-            fireplace:1,
-            garages:1,
+
+            bathrooms: 1,
+            bedrooms: 1,
+            fireplace: 1,
+            garages: 1,
             swimming_pool: 1,
 
             closest_hospital: "less than 20 minutes away",
-            closest_police_station:"less than 20 minutes away",
-            closest_school:"less than 20 minutes away",
-            closest_town:"less than 20 minutes away",
-        
-            gated_community:false,
-            parking:false,
-            pavements:false,
-            street_lights:false
+            closest_police_station: "less than 20 minutes away",
+            closest_school: "less than 20 minutes away",
+            closest_town: "less than 20 minutes away",
+
+            gated_community: false,
+            parking: false,
+            pavements: false,
+            street_lights: false
         },
-   
+
         owner: ""
-    });
+    }
+
+    const [input, setInput] = useState<ListingFormInputs>(land??defalut_input);
 //   console.log("input ===== ",input)
     
     async function saveListing(input: ListingFormInputs){
@@ -61,21 +80,7 @@ export default function AdminPage() {
                 formdata.append('images',image as Blob)
             })
         }
-        // if(input.description){
-        //     formdata.append('description', encodeURIComponent(input.description))
-        // }
-        // if (input?.image1 && input.image1 instanceof File) {
-        //     formdata.append("image1", input?.image1);
-        // }
-        // if (input?.image2 && input.image2 instanceof File) {
-        //     formdata.append("other_images", input?.image2);
-        // }
-        // if (input?.image3 && input.image3 instanceof File) {
-        //     formdata.append("other_images", input?.image3);
-        // }
-        // if (input?.image4 && input.image4 instanceof File) {
-        //     formdata.append("other_images", input?.image4);
-        // }
+
         if(input.amenities){
             formdata.append("amenities", JSON.stringify(input.amenities));
         }
