@@ -5,7 +5,7 @@ const local_pb ='http://127.0.0.1:8090'
 const pb_agr = 'http://192.168.0.109:8090';
 const pb_agr_bdr ='http://192.168.137.1:8090'
 
-export const base_url = pb_agr;
+export const base_url = remote_pb;
 
 // console.log("base_url  ==== ",base_url)
 export const pb = new PocketBase(base_url);

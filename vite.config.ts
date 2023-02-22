@@ -6,7 +6,9 @@ export default defineConfig({
 
   plugins: [
     tsconfigPaths(), 
-    rakkas(),
+    		rakkas({
+			adapter: "vercel", // or "vercel-edge"
+		}),
     ],
   server:{
     host:true
