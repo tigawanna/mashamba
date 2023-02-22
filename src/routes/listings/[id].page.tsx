@@ -38,7 +38,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
         land?.id as string,
         image.img as string
     );
-    
+    const alt_img_url = makeImageUrl('listings', land.id, land.images[1] as string);
     return (
         <main className="w-full h-full min-h-screen flex flex-col items-center justify-center">
             <div className="w-full h-full flex flex-col items-center justify-center gap-2">
@@ -69,7 +69,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                                     alt: land?.location,
                                 }}
                                 placeholderSrc={
-                                    img_url ? img_url+'?thumb=100x50' : undefined
+                                    img_url ? alt_img_url : undefined
                                 }
                                 height={'300px'}
                                 width={'600px'}

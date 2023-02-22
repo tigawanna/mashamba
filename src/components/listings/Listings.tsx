@@ -34,6 +34,7 @@ return (
 {
     data&&data?.items.map((land)=>{
         const img_url = makeImageUrl('listings',land.id,land.images[0] as string);
+        const alt_img_url = makeImageUrl('listings', land.id, land.images[1] as string);
         
         return (
         <Link  href={`/listings/${land.id}`}
@@ -53,7 +54,7 @@ return (
                                 alt:land?.location,
                             }}
                             placeholderSrc={
-                            img_url ?img_url+'?thumb=100x50':undefined
+                            img_url ?alt_img_url:undefined
                             }
                             height={'200px'}
                             width={'300px'}
