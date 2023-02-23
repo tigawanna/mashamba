@@ -19,7 +19,10 @@ flex flex-col items-center justify-center  '>
 </div>
 
 <div className=' w-full '>
-<Link className='  border-blue-600 hover:border-4 border-2 rounded-lg text-3xl font-bold p-2 mt-2'>Browse</Link>
+<Link 
+href={'listings'}
+className='  border-blue-600 text-purple-500 hover:border-4 border-2 rounded-lg text-3xl font-bold p-2 mt-2'>
+    Browse</Link>
 </div>
 </div>
  

@@ -11,6 +11,13 @@
 
 } */
 
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -24,13 +31,6 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(70, 40, 100);
 
 }
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 
 .scroll-bar{ @apply h-32 scrollbar-thin scrollbar-thumb-[#ff0000] scrollbar-track-gray-100 }
 

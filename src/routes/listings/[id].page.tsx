@@ -61,7 +61,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                             null}
 
 
-                        <div className="w-[90%]">
+                        <div className="w-[90%] h-[30%]">
                             <GoodImage
                                 props={{
                                     className: 'w-[60%]',
