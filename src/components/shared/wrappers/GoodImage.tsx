@@ -45,6 +45,7 @@ export const GoodImage = ({
   }, [props.props.src]);
 
   return (
+    // <div className='h-[200px] overflow-hidden'>
     <img
       style={{}}
       {...{
@@ -57,5 +58,6 @@ export const GoodImage = ({
         ...props,
       }}
     />
+    // </div>
   );
 };
