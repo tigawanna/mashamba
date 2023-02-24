@@ -1,4 +1,4 @@
-import { ClientSuspense, Link, Page, PageProps, useServerSideQuery } from "rakkasjs";
+import { ClientSuspense, Head,Link, Page, PageProps, useServerSideQuery } from "rakkasjs";
 import { getPbListings } from "../../utils/api/listings";
 // import ReactLeafletMapCard from "../../components/location/ReactLeafletMapCard";
 import { FaWhatsapp, FaEnvelope, FaPhone } from 'react-icons/fa/index.js';
@@ -55,6 +55,14 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
     // const alt_img_url = makeImageUrl('listings', land.id, land.images[1] as string);
     return (
         <main className="w-full h-full min-h-screen flex flex-col items-center justify-center">
+            <Head title={land.location}>
+                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+                <meta name="description" content={land.description} />
+                <meta name="keywords" content={land.description} />
+   
+            </Head>
             <div className="w-full h-full flex flex-col items-center justify-center gap-2">
                 
                 <Link className="text-lg text-purple-900 hover:text-purple-500"
