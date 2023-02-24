@@ -32,6 +32,7 @@ setLoading(false);
 }, 500);
 }
 };
+
 return () => {
 isMounted = false;
 clearTimeout(timeoutId);

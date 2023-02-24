@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import LandScape from '../../../assets/landscapp.svg';
 import { GrNext, GrPrevious } from 'react-icons/gr/index.js'
 import { TheIcon } from './TheIcon';
+import LandScape from '../../../assets/landscapp.svg';
 
 
 interface GoodImageCarouselProps {
@@ -49,7 +49,7 @@ export const GoodImageCarousel = ({ height = 100, width = 100, imgs ,...props }:
                     setLoading(true);
                     setImage((prev) => {
                         if (prev.idx > 0) {
-                            return { img:imgs[prev.idx - 1] as string, idx: prev.idx - 1 }
+                            return { img:imgs[prev.idx - 1] as string, idx:prev.idx - 1 }
                         }
                         return prev
                     })
@@ -57,7 +57,7 @@ export const GoodImageCarousel = ({ height = 100, width = 100, imgs ,...props }:
                 }} /> :
                 null}
 
-        <div className=" w-[90%]  h-[50%] flex items-center justify-center gap-2 ">
+        <div className=" w-[80%]  h-[50%] flex items-center justify-center gap-2 ">
         <img
             style={{ filter: isLoading ? 'blur(10px)' : "none" }}
             {...{

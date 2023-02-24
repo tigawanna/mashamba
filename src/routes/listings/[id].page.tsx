@@ -69,7 +69,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                         height={'300px'}
                         width={'600px'}
                         props={{
-                            className: 'w-[90%]',
+                            className: 'w-[80%]',
                             src: img_url as string,
                             alt: land?.location,
                         }}
