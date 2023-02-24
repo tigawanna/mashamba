@@ -43,11 +43,12 @@ return (
                 shadow-lg border hover:shadow-lg  hover:shadow-slate-300 rounded-2xl ">
                     
             <div className=" h-full w-full flex items-center justify-center relative">
+                
           {land.status ==="sold"?
           <div className="w-full h-full absolute font-bold font-serif
-                    flex items-center justify-center  text-6xl  ">
-                    SOLD
-                  </div>:null}
+            flex items-center justify-center  text-6xl  text-slate-50 bg-slate-500 bg-opacity-30">
+            SOLD</div>:null}
+
                         <GoodImage
                             props={{
                             src: img_url as string,
@@ -61,14 +62,7 @@ return (
                         />
                   
 
-                    {/* <img className=' h-auto w-full rounded-t-2xl object-cover'
-                        src={makeImageUrl('listings',land.id,land?.images[0] as string)
-                        +'?thumb=100x100'
-                    }
-                        alt={land.location}
-                          height={'200px'}
-                         width={'200px'}
-                         /> */}
+ 
                     </div>
 
                 
@@ -78,7 +72,7 @@ return (
                     <p className='text-sm'>Owner: {land.owner}</p>
                     <p className='text-sm'>{land.status}</p>
                     <p className='text-sm'>{land.amenities?.type}</p>
-                    <p className='font-semibold font-sans text-lg text-purple-300'>{land.price.toLocaleString('en-US')} Ksh</p>
+                    <p className='font-semibold font-sans text-lg text-purple-900'>{land.price.toLocaleString('en-US')} Ksh</p>
             
                     <div className="border-t p-1 m-1">
                         <p className='text-sm flex font-semibold'>Owner: {land.expand.owner.name}</p>

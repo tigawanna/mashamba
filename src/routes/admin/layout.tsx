@@ -1,7 +1,9 @@
 // This is the main layout of our app. It renders the header and the footer.
 
 import { Head, Layout} from "rakkasjs";
+import { useAuthSession } from './../../utils/hooks/auth-hooks';
 const MainLayout: Layout = ({ children }) => {
+
 return (
         <>
             {/* Rakkas relies on react-helmet-async for managing the document head */}

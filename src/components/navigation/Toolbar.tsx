@@ -32,9 +32,7 @@ return (
             Real Estates
         </Link>
 
-        <nav className="min-w-[250px] p-1 hidden md:flex">
-            <RouteLinks/>
-        </nav>
+
         <ClientSuspense fallback="">
         <ReactModalWrapper
             child={<nav className="w-full  flex item-center gap-1 font-serif"><RouteLinks /></nav>}
@@ -53,7 +51,10 @@ return (
                 content_left: '0%',
                 content_top: '2%',
             }} />
-            </ClientSuspense>
+        </ClientSuspense>
+        <nav className="px-3 hidden md:flex">
+            <RouteLinks />
+        </nav>
 
  </div>
 );

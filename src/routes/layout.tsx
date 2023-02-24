@@ -15,6 +15,7 @@ const MainLayout: Layout = ({ children }) => {
     }
     return false
   }
+  
   return (
   <>
     {/* Rakkas relies on react-helmet-async for managing the document head */}

@@ -20,6 +20,7 @@ export default function AdminPage() {
         longitude: position.lng,
         latitude: position.lat,
         description: "",
+        price:50000,
 
         status: "available",
         images:[],
@@ -61,21 +62,7 @@ export default function AdminPage() {
                 formdata.append('images',image as Blob)
             })
         }
-        // if(input.description){
-        //     formdata.append('description', encodeURIComponent(input.description))
-        // }
-        // if (input?.image1 && input.image1 instanceof File) {
-        //     formdata.append("image1", input?.image1);
-        // }
-        // if (input?.image2 && input.image2 instanceof File) {
-        //     formdata.append("other_images", input?.image2);
-        // }
-        // if (input?.image3 && input.image3 instanceof File) {
-        //     formdata.append("other_images", input?.image3);
-        // }
-        // if (input?.image4 && input.image4 instanceof File) {
-        //     formdata.append("other_images", input?.image4);
-        // }
+
         if(input.amenities){
             formdata.append("amenities", JSON.stringify(input.amenities));
         }

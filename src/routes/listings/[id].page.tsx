@@ -3,12 +3,9 @@ import { getPbListings } from "../../utils/api/listings";
 // import ReactLeafletMapCard from "../../components/location/ReactLeafletMapCard";
 import { FaWhatsapp, FaEnvelope, FaPhone } from 'react-icons/fa/index.js';
 import { TheIcon } from './../../components/shared/wrappers/TheIcon';
-import { makeImageUrl } from "../../utils/api/pocketbase";
+import { makeImageUrl, pb } from "../../utils/api/pocketbase";
 import { GrUp, GrDown } from 'react-icons/gr/index.js'
-
 import { useState } from 'react';
-import { GoodImage } from "../../components/shared/wrappers/GoodImage";
-
 import { lazy } from 'react';
 import { GoodImageCarousel } from "../../components/shared/wrappers/GoodCaroussel";
 const ReactLeafletMapCard = lazy(() => import('../../components/location/ReactLeafletMapCard'));
@@ -65,8 +62,8 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
             </Head>
             <div className="w-full h-full flex flex-col items-center justify-center gap-2">
                 
-                <Link className="text-lg text-purple-900 hover:text-purple-500"
-                    href={`../admin/${land?.id}`}> Edit </Link>
+                {pb.authStore.model?.id ?<Link className="text-lg text-purple-900 hover:text-purple-800"
+                    href={`../admin/${land?.id}`}> Edit </Link>:null}
             
             <div
                 key={land.id}
@@ -87,7 +84,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                         
                         <div className="flex items-center justify-start gap-5">
                         <h1 className='text-2xl font-bold'>{land.location}</h1>
-                        <p className='font-semibold font-sans text-2xl text-purple-300'>
+                        <p className='font-semibold font-sans text-2xl text-purple-900'>
                             {land.price.toLocaleString('en-US')} Ksh</p>
                             </div>
                         
@@ -109,8 +106,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                             <p className='text-sm flex gap-1'><TheIcon Icon={FaEnvelope} />{land.expand.owner.email}</p>
                         </div>
                     </div>
-
-        </div>
+                </div>
 
                 <div className="w-full flex flex-row  items-center justify-center">
              
