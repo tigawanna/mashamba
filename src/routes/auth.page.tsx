@@ -14,6 +14,7 @@ interface LoginInputType {
     password: string;
 }
 
+
 export default function LoginAdminPage({}:LoginAdminProps){
 const [input, setInput] = useState<LoginInputType>({email:"",password:""});
 const [error, setError] = useState({ name: "", message: "" });
