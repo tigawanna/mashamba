@@ -78,6 +78,8 @@ return (
                     <p className='text-sm'>Owner: {land.owner}</p>
                     <p className='text-sm'>{land.status}</p>
                     <p className='text-sm'>{land.amenities?.type}</p>
+                    <p className='font-semibold font-sans text-lg text-purple-300'>{land.price.toLocaleString('en-US')} Ksh</p>
+            
                     <div className="border-t p-1 m-1">
                         <p className='text-sm flex font-semibold'>Owner: {land.expand.owner.name}</p>
                         <p className='text-sm flex gap-1'><TheIcon Icon={FaPhone} />{land.expand.owner.phone}</p>

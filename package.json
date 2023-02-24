@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "rakkas --port 3000",
+    "dev": "rakkas --port 3000 ",
+    "dev-debug":"set NODE_OPTIONS=--inspect && rakkas --port 3000",
     "build": "rakkas build",
     "start": "node dist/server",
     "format": "prettier --write --ignore-unknown src",
