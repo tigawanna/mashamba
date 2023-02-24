@@ -12,42 +12,36 @@ interface GoodImageProps {
   >;
 }
 
-export const GoodImage = ({
-  height = 100,
-  width = 100,
-  placeholderSrc,
-  ...props
-}: GoodImageProps) => {
-  const [imgSrc, setImgSrc] = useState(
-    placeholderSrc || props.props.src || LandScape
-  );
+export const GoodImage = ({height = 100,width = 100,placeholderSrc,...props}: GoodImageProps) => {
+  const [imgSrc, setImgSrc] = useState( placeholderSrc || props.props.src || LandScape);
   // const [loading,setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+useEffect(() => {
+let isMounted = true;
+let timeoutId: NodeJS.Timeout;
 
-    const img = new Image();
-    img.src = props.props.src as string;
+const img = new Image();
+img.src = props.props.src as string;
 
-    img.onload = () => {
-      if (isMounted) {
-        timeoutId = setTimeout(() => {
-          setImgSrc(props.props.src as string);
-        }, 2000);
-      }
-    };
-    return () => {
-      isMounted = false;
-      // setLoading(false);
-      clearTimeout(timeoutId);
-    };
-  }, [props.props.src]);
+img.onload = () => {
+if (isMounted) {
+timeoutId = setTimeout(() => {
+setImgSrc(props.props.src as string);
+setLoading(false);
+}, 500);
+}
+};
+return () => {
+isMounted = false;
+clearTimeout(timeoutId);
+};
+}, [props.props.src]);
 
   return (
     // <div className='h-[200px] overflow-hidden'>
     <img
-      style={{}}
+      style={{filter:isLoading?'blur(20px)':"none"}}
       {...{
         src: imgSrc,
         alt:props.props.alt,
