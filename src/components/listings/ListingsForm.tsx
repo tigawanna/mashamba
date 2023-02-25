@@ -162,7 +162,8 @@ return (
             <ReactLeafletMapCard
             coords={{lat:input.latitude,lng:input.longitude}}
             setMapLocation={setMapLocation}
-                />
+            display_only={false}
+            />
             </div>
 
 

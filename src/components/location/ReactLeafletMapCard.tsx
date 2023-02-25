@@ -1,47 +1,83 @@
-import { MapContainer, Marker, TileLayer,Popup } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer,Popup, useMapEvents } from 'react-leaflet';
 import { useGeoLocation } from '../../utils/hooks/useGeoLocation';
+
 import { useState } from 'react';
 import 'leaflet/dist/leaflet.css'
 
-
 interface ReactLeafletMapCardProps {
  coords:{lat:number ; lng: number}
- display?:boolean
+ display_only:boolean
  setMapLocation?:(lat:number,lng:number)=>void
 }
 
+interface LatLngExp{
+    lat:number
+    lng:number
+}
 
-const ReactLeafletMapCard = ({coords,display,setMapLocation}:ReactLeafletMapCardProps) => {
+const ReactLeafletMapCard = ({coords,display_only,setMapLocation}:ReactLeafletMapCardProps) => {
 
 const {position} = useGeoLocation()
 const [pos,setPos]=useState(()=>coords??position)
-const [zoom,SetZoom]=useState(20)
+const [zoom,SetZoom]=useState(15)
 
-const onClickMarker = (e:any)=>{
-    // console.log("map marker event === ",e.target._latlng)
-    setMapLocation&&setMapLocation(e.target._latlng.lat,e.target._latlng.lng)
-}
-// console.log("geolocation", geolocation)
 return (
- <div className='w-full h-full flex items-center justify-center'>
+ <div className='w-full h-full flex flex-col items-center justify-center select-none'>
+    
     <MapContainer 
-      style={{ width: "90%", height: "500px" }} center={position} zoom={zoom} scrollWheelZoom={true}>
+      style={{ width: "90%", height: "500px", }} center={pos} 
+      zoom={zoom} scrollWheelZoom={true}>
+        
         <TileLayer
                 attribution='&copy; 
                 <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={pos} 
-              draggable={true}
-              eventHandlers={
-               { dragend:onClickMarker}
-            }>
-                {/* <Popup className='bg-red-900'>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup> */}
-            </Marker>
+        />
+      
+                {/* <Popup>Popup in FeatureGroup</Popup> */}
+              <button type="button"
+                className='leaflet-top leaflet-right 
+                bg-purple-900 p-2 m-1 z-50 rounded-lg hover:bg-slate-700'
+                onClick={() => setPos(coords??position)}>Recenter Map</button> 
+  
+
+
+            <MapChild 
+            draggable={!display_only}
+            position={pos} 
+            setMapLocation={setMapLocation}/>
+ 
         </MapContainer>
  </div>
 );
 }
 export default ReactLeafletMapCard
+
+interface MapChildProps {
+    draggable:boolean
+    position:LatLngExp
+    setMapLocation: ((lat: number, lng: number) => void) | undefined
+}
+function MapChild({draggable,position,setMapLocation}:MapChildProps) {
+    console.log("draggable ",draggable)  
+    // const [position, setPosition] = useState(null)
+    const map = useMapEvents({
+        click() {
+            map.locate()
+        },
+        locationfound(e) {
+            // setPosition(e.latlng)
+           setMapLocation&&setMapLocation(e.latlng.lat,e.latlng.lng)
+            map.flyTo(position, map.getZoom())
+        },
+        dragend(e) {
+            setMapLocation && setMapLocation(e.target._latlng.lat, e.target._latlng.lng)
+        }
+    })
+
+    return position === null ? null : (
+        <Marker position={position} draggable={draggable}>
+            <Popup>You are here</Popup>
+        </Marker>
+    )
+}

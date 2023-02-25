@@ -1,12 +1,13 @@
 // admin page
 import { useState } from 'react';
-// import { ListingsForm } from './../../components/listings/ListingsForm';
 import { ClientSuspense, PageProps, useMutation, useServerSideQuery} from 'rakkasjs';
 import { PBListings, getPbListings } from '../../utils/api/listings';
 import { concatErrors } from '../../utils/helper/concatErrors';
 import { useGeoLocation } from '../../utils/hooks/useGeoLocation';
 import { lazy } from 'react'
 import { pb } from '../../utils/api/pocketbase';
+
+
 const ListingsForm = lazy(() => import('../../components/listings/ListingsForm'));
 
 export type ListingFormInputs = Omit<PBListings, "id" | "collectionId" | "collectionName" | "created" | "updated" |"expand">
@@ -26,6 +27,8 @@ export default function AdminPage({ params }: PageProps) {
             refetchOnWindowFocus: true,
             refetchOnReconnect: true,
     });
+
+
 
     if (!data) {
         return <div>Loading...</div>

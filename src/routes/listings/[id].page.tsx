@@ -113,7 +113,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
                     <div className="w-[90%] md:w-[70%] p-5 ">
                         <ClientSuspense fallback="loading" >
                         <ReactLeafletMapCard
-                            display={false} coords={{ lat: land.longitude, lng: land.longitude }}
+                            display_only={true} coords={{ lat: land.longitude, lng: land.longitude }}
                         />
                         </ClientSuspense>
                     </div>
