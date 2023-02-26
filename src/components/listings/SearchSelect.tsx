@@ -1,23 +1,40 @@
-import AsyncSelect from 'react-select/async';
-import { OwnerResponse, getOwner } from '../../utils/api/owner';
-interface SearchOwnerProps {
-    gettterFunction(keyword: string): Promise<any[]>
-    setValue:(value: any) => void
-   
+import { GroupBase, OptionProps, components } from "react-select";
+import AsyncSelect from "react-select/async";
+
+interface SearchOwnerProps<T> {
+  gettterFunction(keyword: string): Promise<any[]>;
+  setValue: (value: any) => void;
+
+  CustomOption?: (
+    props: OptionProps<T, boolean, GroupBase<T>>
+  ) => JSX.Element | null;
 }
 
-export const SearchSelect = ({gettterFunction,setValue}:SearchOwnerProps) => {
-    const loadOptions = (inputValue: string,callback: (options: any[]) => void) => {
-        setTimeout(async() => {
-            callback(await gettterFunction(inputValue??" "));
-        }, 200);
-    };
-return (
+export const SearchSelect = <T = unknown,>({
+  gettterFunction,
+  setValue,
+  CustomOption,
+}: SearchOwnerProps<T>) => {
+  const loadOptions = (
+    inputValue: string,
+    callback: (options: any[]) => void
+  ) => {
+    setTimeout(async () => {
+      callback(await gettterFunction(inputValue ?? " "));
+    }, 200);
+  };
 
-        <AsyncSelect 
-        className='w-full'
-        onChange={(res) => { setValue(res.value)}}
-        cacheOptions loadOptions={loadOptions} defaultOptions />
-
-);
-}
+  return (
+    <AsyncSelect
+      className="w-full"
+      // @ts-expect-error
+      onChange={(res) => {
+        setValue(res.value);
+      }}
+      cacheOptions
+      loadOptions={loadOptions}
+      defaultOptions
+      components={CustomOption ? { Option: CustomOption } : undefined}
+    />
+  );
+};

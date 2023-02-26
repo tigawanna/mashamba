@@ -1,10 +1,10 @@
 import { json } from "@hattip/response";
 export function get() {
-	return json({ hello: "hello world" });
+  return json({ hello: "hello world" });
 
-	// Shorthand for:
+  // Shorthand for:
 
-	// return new Response(JSON.stringify({ hello: "world" }), {
-	// 	headers: { "content-type": "application/json" },
-	// });
+  // return new Response(JSON.stringify({ hello: "world" }), {
+  // 	headers: { "content-type": "application/json" },
+  // });
 }

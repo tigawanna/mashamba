@@ -1,9 +1,9 @@
-  .home_img {
-    position: relative;
-    padding-bottom: 60;
-    padding-top: 60;
-    width: 100%;
-    min-height:100vh;
-    object-fit: cover;
-    aspect-ratio: attr(width) / attr(height);
-} 
+.home_img {
+  position: relative;
+  padding-bottom: 60;
+  padding-top: 60;
+  width: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  aspect-ratio: attr(width) / attr(height);
+}
