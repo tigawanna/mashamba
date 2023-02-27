@@ -1,5 +1,6 @@
 import BigLand from "../../assets/land-big.webp";
 import { TheIcon } from "../shared/wrappers/TheIcon";
+import { HomePageComponent } from "./HomePageComponent";
 import css from "./home.module.css";
 import { Link } from "rakkasjs";
 import { BsArrowRight } from "react-icons/bs/index.js";
@@ -23,25 +24,34 @@ export const HeroImage = ({ }: HeroImageProps) => {
 
 
 
-            <div
-                className="h-full w-full bg-opacity-30 z-3 absolute  bg-slate-700 
-                flex flex-col items-center justify-center  ">
+            <div className="h-full w-full bg-opacity-40 z-3 absolute  bg-slate-700 
+                flex  items-center justify-center  ">
+                
                 <div className="w-[90%] md:w-[40%] flex flex-col items-start justify-start gap-5">
-                <div className="w-full  text-6xl font-bold font-serif capitalize first-letter:text-blue-800">
-                        {" "}
-                        <div>find</div> your Dream property with us
-                </div>
+                <div className="w-full  text-6xl font-bold font-serif capitalize first-letter:text-purple-400">
+                {" "}<div>find</div> your Dream property with us</div>
+                
                 <div className=" w-full ">
-                        <Link
-                            href={"listings"}
-                            className="flex gap-2 w-fit items-center justify-center 
-                             border-b-4 border-b-slate-400 text-blue-900 text-3xl font-bold p-2 mt-2 ">
-                            Browse catalog{" "}
-                            <TheIcon Icon={BsArrowRight} iconstyle="hover:scale-105" />
-                        </Link>
-                    </div>
+                <Link href={"listings"}
+                className="flex gap-2 w-fit items-center justify-center
+                animate-bounce 
+                border-b-4 border-b-slate-400 text-purple-400 text-3xl font-bold p-2 mt-2 ">
+                Browse catalog{" "}
+                <TheIcon Icon={BsArrowRight} iconstyle="hover:scale-105" />
+                </Link>
                 </div>
+                </div>
+
+                <div className="w-[50%] bg-opacity-90">
+                    {/* <HomePageComponent/> */}
+                </div>
+
+
             </div>
+
+
+
+
         </div>
     );
 };

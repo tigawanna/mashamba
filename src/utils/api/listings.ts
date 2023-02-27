@@ -1,5 +1,4 @@
 import { base_url, pb } from "./pocketbase";
-
 export interface LandListingProps {
   id: number;
   location: string;
@@ -136,14 +135,28 @@ export async function searchListing(keyword: string) {
   }
 }
 
-export const getPbListings = async (id?: string) => {
+
+export interface GetPbListingsParams{
+    filter_id: string;
+    perPage: number;
+    page: number;
+    sort: string;
+    expand: string;
+
+}
+
+export const getPbListings = async (params:GetPbListingsParams) => {
   const pb_url = new URL(base_url + "/api/collections/listings/records");
   // pb_url.searchParams.set(filter=(id='abc' && created>'2022-01-01'))
   // const p_url=base_url+'/api/collections/listings/records'
-  pb_url.searchParams.set("expand", "owner");
-  pb_url.searchParams.set("sort", "-created");
-  if (id) {
-    pb_url.searchParams.set("filter", `id="${id}"`);
+
+  pb_url.searchParams.set("sort", params.sort);
+  pb_url.searchParams.set("page", params.page.toString());
+  pb_url.searchParams.set("perPage", params.perPage.toString());
+  pb_url.searchParams.set("expand", params.expand);
+
+  if (params.filter_id) {
+    pb_url.searchParams.set("filter", `id="${params.filter_id}"`);
   }
 
   const p_url = pb_url.toString();

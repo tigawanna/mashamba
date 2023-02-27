@@ -1,19 +1,28 @@
 import { Link, useServerSideQuery } from "rakkasjs";
-import { getPbListings } from "./../../utils/api/listings";
+import { GetPbListingsParams, getPbListings } from "./../../utils/api/listings";
 import { makeImageUrl } from "./../../utils/api/pocketbase";
 import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa/index.js";
 import { TheIcon } from "../shared/wrappers/TheIcon";
 import { GoodImage } from "../shared/wrappers/GoodImage";
+import { useState } from 'react';
 
 interface ListingsProps {}
 
 export const Listings = ({}: ListingsProps) => {
+  
+  const [params,Setparams]=useState<GetPbListingsParams>({
+    filter_id:"",
+    perPage:3,
+    page:1,
+    sort:"-created",
+    expand:"owner",
+  })
   const { data, refetch } = useServerSideQuery(
     () => {
       // if (typeof land_id !== "string") {
       //     throw new Error("Invalid request , param prod_id must be of type number");
       // }
-      return getPbListings("");
+      return getPbListings(params);
     },
     {
       refetchOnWindowFocus: true,
@@ -21,7 +30,7 @@ export const Listings = ({}: ListingsProps) => {
     }
   );
 
-  // console.log("listings === ",data)
+  console.log("listings === ",data)
   if (!data) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -53,8 +62,7 @@ export const Listings = ({}: ListingsProps) => {
                   {land.status === "sold" ? (
                     <div
                       className="w-full h-full absolute font-bold font-serif
-        flex items-center justify-center  text-6xl  text-slate-50 bg-slate-500 bg-opacity-30"
-                    >
+                      flex items-center justify-center  text-6xl  text-slate-50 bg-slate-500 bg-opacity-30">
                       SOLD
                     </div>
                   ) : null}
