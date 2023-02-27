@@ -5,18 +5,22 @@ import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa/index.js";
 import { TheIcon } from "../shared/wrappers/TheIcon";
 import { GoodImage } from "../shared/wrappers/GoodImage";
 import { useState } from 'react';
+import { Pagination } from '@mantine/core';
 
 interface ListingsProps {}
 
 export const Listings = ({}: ListingsProps) => {
   
-  const [params,Setparams]=useState<GetPbListingsParams>({
+  const [params,setParams]=useState<GetPbListingsParams>({
     filter_id:"",
     perPage:3,
     page:1,
     sort:"-created",
     expand:"owner",
   })
+  const updatePage=(page:number)=>{
+    setParams({...params,page:page})
+  }
   const { data, refetch } = useServerSideQuery(
     () => {
       // if (typeof land_id !== "string") {
@@ -30,7 +34,7 @@ export const Listings = ({}: ListingsProps) => {
     }
   );
 
-  console.log("listings === ",data)
+  // console.log("listings === ",data)
   if (!data) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -39,7 +43,7 @@ export const Listings = ({}: ListingsProps) => {
     );
   }
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center">
       <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-2 lg:gap-4">
         {data &&
           data?.items.map((land) => {
@@ -48,9 +52,7 @@ export const Listings = ({}: ListingsProps) => {
               land.id,
               land.images[0] as string
             );
-            const alt_img_url =
-              makeImageUrl("listings", land.id, land.images[0] as string) +
-              "?thumb=100x100";
+            const alt_img_url=makeImageUrl("listings", land.id, land.images[0] as string)+"?thumb=100x100";
 
             return (
               <Link
@@ -107,6 +109,7 @@ export const Listings = ({}: ListingsProps) => {
             );
           })}
       </div>
+      <Pagination page={params.page} onChange={(e)=>updatePage(e)} total={data.totalPages} />
     </div>
   );
 };

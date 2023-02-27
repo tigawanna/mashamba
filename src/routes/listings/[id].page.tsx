@@ -6,7 +6,7 @@ import {
   PageProps,
   useServerSideQuery,
 } from "rakkasjs";
-import { getPbListings } from "../../utils/api/listings";
+import { GetPbListingsParams, getPbListings } from "../../utils/api/listings";
 // import ReactLeafletMapCard from "../../components/location/ReactLeafletMapCard";
 import { FaWhatsapp, FaEnvelope, FaPhone } from "react-icons/fa/index.js";
 import { TheIcon } from "./../../components/shared/wrappers/TheIcon";
@@ -20,12 +20,20 @@ const ReactLeafletMapCard = lazy(
 );
 
 const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
+  const [par_ams, SetParams] = useState<GetPbListingsParams>({
+    filter_id:params.id,
+    perPage: 3,
+    page: 1,
+    sort: "-created",
+    expand: "owner",
+  })
+
   const { data, refetch } = useServerSideQuery(
     () => {
       if (typeof params.id !== "string") {
         throw new Error("Invalid request , params.id must be of type string");
       }
-      return getPbListings(params.id);
+      return getPbListings(par_ams);
     },
     {
       refetchOnWindowFocus: true,
