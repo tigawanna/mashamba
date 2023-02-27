@@ -7,13 +7,16 @@ import { GoodImage } from "../shared/wrappers/GoodImage";
 import { useState } from 'react';
 import { Pagination } from '@mantine/core';
 
-interface ListingsProps {}
+interface ListingsProps {
+  list_params?:GetPbListingsParams;
+  show_page_controls?:boolean;
+}
 
-export const Listings = ({}: ListingsProps) => {
+export const Listings = ({list_params,show_page_controls=true}: ListingsProps) => {
   
-  const [params,setParams]=useState<GetPbListingsParams>({
+  const [params,setParams]=useState<GetPbListingsParams>(list_params??{
     filter_id:"",
-    perPage:3,
+    perPage:10,
     page:1,
     sort:"-created",
     expand:"owner",
@@ -108,7 +111,7 @@ export const Listings = ({}: ListingsProps) => {
             );
           })}
       </div>
-      <Pagination page={params.page} onChange={(e)=>updatePage(e)} total={data.totalPages} />
+      {show_page_controls?<Pagination page={params.page} onChange={(e)=>updatePage(e)} total={data.totalPages} />:null}
     </div>
   );
 };
