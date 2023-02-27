@@ -117,7 +117,7 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
             </p>
             <button
               onClick={() => setHideDetails(!hideDetails)}
-              className="bg-slate-900 p-1"
+              className=" p-1"
             >
               <TheIcon
                 Icon={hideDetails ? GrDown : GrUp}
