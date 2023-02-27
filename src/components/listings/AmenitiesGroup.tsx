@@ -21,10 +21,10 @@ export const AmenitiesGroup = ({
     { value: "house", label: "House" },
   ];
   const sizeOptions = [
-    { value: "50 * 100", label: "50 * 100" },
-    { value: "100 * 200", label: "100 * 200" },
-    { value: "200 * 300", label: "200 * 300" },
-    { value: "300 * 400", label: "300 * 400" },
+    { value: "50 x 100", label: "50 x 100" },
+    { value: "100 x 200", label: "100 x 200" },
+    { value: "200 x 300", label: "200 x 300" },
+    { value: "300 * 400", label: "300 x 400" },
   ];
   const waterSourceoptions = [
     { value: "piped", label: "Piped" },

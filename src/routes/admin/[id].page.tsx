@@ -6,7 +6,7 @@ import {
   useMutation,
   useServerSideQuery,
 } from "rakkasjs";
-import { PBListings, getPbListings } from "../../utils/api/listings";
+import { GetPbListingsParams, PBListings, getPbListings } from "../../utils/api/listings";
 import { concatErrors } from "../../utils/helper/concatErrors";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { lazy } from "react";
@@ -24,13 +24,20 @@ export type ListingFormInputs = Omit<
 export default function AdminPage({ params }: PageProps) {
   const { position } = useGeoLocation();
   const [error, setError] = useState({ name: "", message: "" });
+  const [par_ams, SetParams] = useState<GetPbListingsParams>({
+    filter_id: params.id,
+    perPage: 3,
+    page: 1,
+    sort: "-created",
+    expand: "owner",
+  })
 
   const { data, refetch } = useServerSideQuery(
     () => {
       if (typeof params.id !== "string") {
         throw new Error("Invalid request , params.id must be of type string");
       }
-      return getPbListings(params.id);
+      return getPbListings(par_ams);
     },
     {
       refetchOnWindowFocus: true,
@@ -53,7 +60,7 @@ export default function AdminPage({ params }: PageProps) {
     images: [],
     amenities: {
       type: "land",
-      size: "",
+      size: "50 x 100",
 
       water_source: "piped",
       elecricity_source: "utility pole",
@@ -79,10 +86,10 @@ export default function AdminPage({ params }: PageProps) {
   };
 
   const [input, setInput] = useState<ListingFormInputs>(land ?? defalut_input);
-  //   console.log("input ===== ",input)
+    // console.log("input ===== ",input)
 
   async function saveListing(input: ListingFormInputs) {
-    //   console.log("input on fetch === ",input)
+      // console.log("input on fetch === ",input)
     const excludeKeys = ["amenities", "images"];
 
     const formdata = new FormData();
@@ -104,7 +111,8 @@ export default function AdminPage({ params }: PageProps) {
         formdata.append(key, input[key]);
       }
     }
-    const res = await pb.collection("listings").create<PBListings>(formdata);
+    // console.log("form data  === ",formdata.getAll("amenities"))
+    const res = await pb.collection("listings").update<PBListings>(params.id,formdata);
     // console.log("res ==== ",res)
     return res;
   }
@@ -126,7 +134,7 @@ export default function AdminPage({ params }: PageProps) {
     <main className="w-full min-h-screen h-full flex flex-col justify-center items-center">
       <ClientSuspense fallback={"loading..."}>
         <ListingsForm
-          label="Add New Listing"
+          label={"Edit " + params.id}
           mutation={mutation}
           input={input}
           setInput={setInput}

@@ -31,7 +31,7 @@ export default function AdminPage() {
     images: [],
     amenities: {
       type: "land",
-      size: "",
+      size: "50 x 100",
 
       water_source: "piped",
       elecricity_source: "utility pole",

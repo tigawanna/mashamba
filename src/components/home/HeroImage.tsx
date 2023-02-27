@@ -1,9 +1,9 @@
 import BigLand from "../../assets/land-big.webp";
 import { TheIcon } from "../shared/wrappers/TheIcon";
-import { HomePageComponent } from "./HomePageComponent";
 import css from "./home.module.css";
 import { Link } from "rakkasjs";
 import { BsArrowRight } from "react-icons/bs/index.js";
+import { ShowcaseListings } from "./ShowcaseListings";
 
 
 
@@ -25,7 +25,7 @@ export const HeroImage = ({ }: HeroImageProps) => {
 
 
             <div className="h-full w-full bg-opacity-40 z-3 absolute  bg-slate-700 
-                flex  items-center justify-center  ">
+                flex flex-col md:flex-row items-center justify-center  ">
                 
                 <div className="w-[90%] md:w-[40%] flex flex-col items-start justify-start gap-5">
                 <div className="w-full  text-6xl font-bold font-serif capitalize first-letter:text-purple-400">
@@ -42,8 +42,9 @@ export const HeroImage = ({ }: HeroImageProps) => {
                 </div>
                 </div>
 
-                <div className="w-[50%] bg-opacity-90">
+                <div className="w-[30%] h-fit bg-slate-900 bg-opacity-60 rounded-xl">
                     {/* <HomePageComponent/> */}
+                 <ShowcaseListings/>
                 </div>
 
 

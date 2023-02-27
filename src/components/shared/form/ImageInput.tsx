@@ -65,7 +65,7 @@ export const ImageInput = <T,>({
     }
   }, [pics]);
 
-  console.log("input ==== ", input.images);
+  // console.log("input ==== ", input.images);
   return (
     <div className="w-full  h-full flex flex-col items-center justify-center ">
       <label className="text-md capitalize  w-[90%] flex items-start">
@@ -88,9 +88,10 @@ export const ImageInput = <T,>({
             {oldPics.map((file: string, index) => {
               // expect typescirpt error below because form input types are derived
               // from the result type and  the id and other pocketbase generated fields are om
-              // @ts-expect-error
+          
               const img_url = makeImageUrl(
                 "listings",
+                // @ts-expect-error
                 input.id,
                 file as string
               );

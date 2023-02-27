@@ -77,13 +77,12 @@ export const Listings = ({}: ListingsProps) => {
                   />
                 </div>
 
-                <div className="font-serif p-3">
+                <div className=" p-3">
                   <h1 className="text-2xl font-bold">{land.location}</h1>
-                  <p className="text-sm line-clamp-3">{land.description}</p>
-                  <p className="text-sm">Owner: {land.owner}</p>
-                  <p className="text-sm">{land.status}</p>
-                  <p className="text-sm">{land.amenities?.type}</p>
-                  <p className="font-semibold font-sans text-lg text-purple-900">
+                  <p className="text-sm line-clamp-3 font-serif  py-1">{land.description}</p>
+
+                  <p className="text-sm rounded-lg border-t">{land.amenities?.size}</p>
+                    <p className="font-semibold font-sans text-lg text-purple-900">
                     {land.price.toLocaleString("en-US")} Ksh
                   </p>
 
