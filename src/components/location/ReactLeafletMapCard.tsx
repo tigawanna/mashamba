@@ -47,8 +47,8 @@ const ReactLeafletMapCard = ({
         {/* <Popup>Popup in FeatureGroup</Popup> */}
         <button
           type="button"
-          className="leaflet-top leaflet-right 
-                bg-purple-900 p-2 m-1 z-50 rounded-lg hover:bg-slate-700"
+          className="leaflet-top leaflet-right text-white
+                bg-purple-900 p-2 m-2 z-50 rounded-lg hover:bg-slate-700"
           onClick={() => setPos(coords ?? position)}
         >
           Recenter Map

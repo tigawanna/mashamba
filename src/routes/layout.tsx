@@ -31,7 +31,7 @@ const MainLayout: Layout = ({ children }) => {
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
 
-      <header className="w-full h-12 p-2 z-30 sticky top-0 bg-slate-900 text-white">
+      <header className="w-full h-12 p-2 z-30 sticky top-0 bg-slate-900 bg-opacity-20 text-slate-800 ">
         {/* <Link /> is like <a /> but it provides client-side navigation without full page reload. */}
         <ClientSuspense fallback="">
           <Toolbar />
