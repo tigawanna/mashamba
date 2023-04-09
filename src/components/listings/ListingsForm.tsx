@@ -32,6 +32,7 @@ const ListingsForm = ({
   error,
   setError,
 }: ListingsFormProps) => {
+  
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {

@@ -89,17 +89,7 @@ export default function AdminPage() {
     (input) => saveListing(input),
     {
       onSuccess: () => {
-        //  setOpen(false)
-        // setInput({
-        //  location: "",
-        //  longitude: 0,
-        //  latitude: 0,
-        //  description: "",
-        //  status: "avalilabe",
-        //  images:[],
-        //  amenities:null,
-        //  owner: ""
-        // })
+
         setError({ name: "", message: "" });
       },
       onError: (err) => {

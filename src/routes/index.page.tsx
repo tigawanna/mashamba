@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <main>
       <HeroImage />
-     <div className="w-full bg-opacity-60 rounded-xl">
+       <div className="w-full bg-opacity-60 rounded-xl">
         <div className="text-xl text-center p-1 font-serif">Top Picks</div>
         <ClientSuspense fallback={<ShowcaseListingsPlaceholder/>}>
   

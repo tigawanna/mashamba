@@ -10,11 +10,9 @@ interface SearchOwnerProps<T> {
   ) => JSX.Element | null;
 }
 
-export const SearchSelect = <T = unknown,>({
-  gettterFunction,
-  setValue,
-  CustomOption,
-}: SearchOwnerProps<T>) => {
+export const SearchSelect = <T,>({ gettterFunction,setValue,CustomOption,}: SearchOwnerProps<T>) => {
+
+  
   const loadOptions = (
     inputValue: string,
     callback: (options: any[]) => void
