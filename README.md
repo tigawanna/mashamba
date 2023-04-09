@@ -185,7 +185,11 @@ And we might also want an admin page to faclitate adding new listings and updati
 which is where rakkas auth guards come in 
 
 
-add a `$guard.ts` to the admin directory to mark it off limits to unauthed users and redirect them to the login oage instead . rakkas has alot of middleware like this for even deeper customization
+add a `$guard.ts` to the admin directory 
+![admin page structure](https://github.com/tigawanna/mashamba/blob/master/docs/captures/admin0file-structure.png)
+
+to mark it off limits to unauthed users and redirect them to the login oage instead . rakkas has alot of middleware like this for even deeper customization
+
 
 ```ts
 import { pb } from "../../utils/api/pocketbase";
