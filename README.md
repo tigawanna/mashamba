@@ -32,6 +32,9 @@ to offer modern javascript fullstack features
 
 ## Simple implementation
 
+![ownership-insurance-real-estate](https://user-images.githubusercontent.com/72096712/230766045-c7135ae6-2052-4603-b31c-3904f01dfa40.jpg)
+
+
 I made a simple real estate site with rakkas to try it out.
 
 
