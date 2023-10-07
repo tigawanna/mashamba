@@ -23,7 +23,7 @@
     "@types/react-modal": "^3.13.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.33.0",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.31",
     "prettier": "^2.8.3",
     "rakkasjs": "0.6.15",
     "tailwind-scrollbar": "^2.1.0",
