@@ -1,7 +1,7 @@
 import { ListingAmenities } from "../../utils/api/listings";
 import Select from "react-select";
 import Creatable from "react-select/creatable";
-import { Checkbox } from "@mantine/core";
+
 interface AmenitiesGrioupProps {
   amenities: ListingAmenities | null;
   setAmenity: (key: keyof ListingAmenities, value: any) => void;
