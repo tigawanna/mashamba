@@ -22,6 +22,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-modal": "^3.13.1",
     "autoprefixer": "^10.4.13",
+    "daisyui": "4.4.2",
     "eslint": "^8.33.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.3",
@@ -30,23 +31,23 @@
     "tailwindcss": "^3.2.6",
     "tailwindcss-animate": "^1.0.5",
     "typescript": "^4.9.5",
-    "daisyui": "4.4.2",
     "vite": "^4.5.0",
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.28.4"
   },
   "dependencies": {
-    "@material-tailwind/react": "^2.1.5",
     "@hattip/cookie": "^0.0.35",
     "@hattip/response": "^0.0.35",
-    "typed-pocketbase": "^0.0.8",
+    "@material-tailwind/react": "^2.1.5",
     "@tanem/react-nprogress": "^5.0.27",
     "leaflet": "^1.9.3",
+    "lucide-react": "^0.294.0",
     "pocketbase": "^0.10.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-leaflet": "^4.2.0",
-    "react-select": "^5.7.0"
+    "react-select": "^5.7.0",
+    "typed-pocketbase": "^0.0.8"
   }
 }

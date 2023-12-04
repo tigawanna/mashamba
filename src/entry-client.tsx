@@ -1,8 +1,7 @@
 /* eslint-disable no-var */
 import { startClient } from "rakkasjs";
-import { TypedPocketBase } from "typed-pocketbase";
 import PocketBase from "pocketbase";
-import { Schema } from "./lib/pb/db-types";
+import { PocketBaseClient } from "./lib/pb/client";
 
 
 
@@ -20,7 +19,7 @@ startClient({
         ctx.locals.pb = new PocketBase(
           // @ts-expect-error
           import.meta.env.RAKKAS_PB_URL,
-        ) as TypedPocketBase<Schema>;
+        ) as PocketBaseClient;
         ctx.locals.pb?.authStore.onChange(() => {
           ctx.requestContext?.setCookie?.(
             "set-cookie",

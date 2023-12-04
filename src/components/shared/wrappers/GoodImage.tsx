@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import LandScape from "../../../assets/landscapp.svg";
+import LandScape from "@/assets/landscapp.svg";
 
 interface GoodImageProps {
   height?: string | number;

@@ -1,10 +1,12 @@
-import { Link, useServerSideQuery } from "rakkasjs";
-import { GetPbListingsParams, getPbListings } from "./../../utils/api/listings";
-import { makeImageUrl } from "./../../utils/api/pocketbase";
-import { FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa/index.js";
-import { TheIcon } from "../shared/wrappers/TheIcon";
-import { GoodImage } from "../shared/wrappers/GoodImage";
-import { useState } from 'react';
+import { Link} from "rakkasjs";
+
+import {Phone,Mail} from "lucide-react"
+import { useListingsQuery } from "../utils/useListingsQuery";
+import { Icons } from "@/components/shared/icons/Iconts";
+import { getFileURL } from "@/lib/pb/client";
+import { GoodImage } from "@/components/shared/wrappers/GoodImage";
+import { GetPbListingsParams } from "@/utils/api/listings";
+import { useState } from "react";
 
 
 interface ListingsProps {
@@ -21,23 +23,27 @@ export const Listings = ({list_params,show_page_controls=true}: ListingsProps) =
     sort:"-created",
     expand:"owner",
   })
-  const updatePage=(page:number)=>{
-    setParams({...params,page:page})
-  }
-  const { data, refetch } = useServerSideQuery(
-    () => {
-      // if (typeof land_id !== "string") {
-      //     throw new Error("Invalid request , param prod_id must be of type number");
-      // }
-      return getPbListings(params);
-    },
-    {
-      refetchOnWindowFocus: true,
-      refetchOnReconnect: true,
-    }
-  );
+  // const updatePage=(page:number)=>{
+  //   setParams({...params,page:page})
+  // }
+  // const { data, refetch } = useServerSideQuery(
+  //   () => {
+  //     // if (typeof land_id !== "string") {
+  //     //     throw new Error("Invalid request , param prod_id must be of type number");
+  //     // }
+  //     return getPbListings(params);
+  //   },
+  //   {
+  //     refetchOnWindowFocus: true,
+  //     refetchOnReconnect: true,
+  //   }
+  // );
 
   // console.log("listings === ",data)
+
+const {query,pages_arr,goToPage,page_number} = useListingsQuery({})
+
+const data = query.data?.data
   if (!data) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -50,14 +56,17 @@ export const Listings = ({list_params,show_page_controls=true}: ListingsProps) =
       <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-2 lg:gap-4">
         {data &&
           data?.items.map((land) => {
-            const img_url = makeImageUrl(
-              "listings",
-              land.id,
-              land.images[0] as string
-            );
-            const alt_img_url =
-              makeImageUrl("listings", land.id, land.images[0] as string) +
-              "?thumb=100x100";
+            const img_url = getFileURL({
+              collection_id_or_name:"mashamba_listings",
+              file_name: land.images[0] as string,
+              record_id:  land.id
+            })+"?thumb=100x100";
+            const alt_img_url = getFileURL({
+              collection_id_or_name: "mashamba_listings",
+              file_name: land.images[0] as string,
+              record_id: land.id,
+            });
+          
 
             return (
               <Link
@@ -100,18 +109,18 @@ export const Listings = ({list_params,show_page_controls=true}: ListingsProps) =
                     <p className="text-sm flex font-semibold">
                       Owner: {land.expand.owner.name}
                     </p>
-                    <p className="text-sm flex gap-1">
-                      <TheIcon Icon={FaPhone} />
-                      {land.expand.owner.phone}
-                    </p>
-                    <p className="text-sm flex gap-1">
-                      <TheIcon Icon={FaWhatsapp} />
+                    <span className="text-sm flex gap-1">
+                      <Phone />
+                    {land.expand.owner.phone}
+                    </span>
+                    <span className="text-sm flex gap-1">
+                    <Icons.whatsapp/>
                       {land.expand.owner.whatsapp}
-                    </p>
-                    <p className="text-sm flex gap-1">
-                      <TheIcon Icon={FaEnvelope} />
+                    </span>
+                    <span className="text-sm flex gap-1">
+                      <Mail/>
                       {land.expand.owner.email}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -119,25 +128,7 @@ export const Listings = ({list_params,show_page_controls=true}: ListingsProps) =
           })}
       </div>
       {/* {show_page_controls?<Pagination page={params.page} onChange={(e)=>updatePage(e)} total={data.totalPages} />:null} */}
-      {show_page_controls ? (
-        <div className="join ">
-          {pages_arr.map((item) => {
-            return (
-              <button
-                key={item}
-                onClick={() => goToPage(item)}
-                className={
-                  item === page_number
-                    ? "join-item btn btn-sm btn-active bg-accent"
-                    : "join-item btn btn-sm"
-                }
-              >
-                {item}
-              </button>
-            );
-          })}
-        </div>
-      ) : null}
+
     </div>
   );
 };

@@ -665,8 +665,8 @@ export type UtilityTenantsCollection = {
 
 export type Schema = {
 // mashamba
-  // mashamba_listings: MashambaListingsCollection;
-  // mashamba_owner: MashambaOwnerCollection;
+  mashamba_listings: MashambaListingsCollection;
+  mashamba_owner: MashambaOwnerCollection;
 // tasky
   // tasky_tasks: TaskyTasksCollection;
   // tasky_staff_details: TaskyStaffDetailsCollection;
@@ -677,9 +677,9 @@ export type Schema = {
   // pocketbook_posts: PocketbookPostsCollection;
   // pocketbook_friends: PocketbookFriendsCollection;
 // utility
-  utility_shops: UtilityShopsCollection;
-  utility_staff: UtilityStaffCollection;
-  utility_tenants_base: UtilityTenantsBaseCollection;
-  utility_bills: UtilityBillsCollection;
-  utility_tenants: UtilityTenantsCollection;
+  // utility_shops: UtilityShopsCollection;
+  // utility_staff: UtilityStaffCollection;
+  // utility_tenants_base: UtilityTenantsBaseCollection;
+  // utility_bills: UtilityBillsCollection;
+  // utility_tenants: UtilityTenantsCollection;
 };

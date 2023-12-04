@@ -12,7 +12,7 @@ export default withMT({
   require("tailwind-scrollbar"),
     require("tailwindcss-animate"),
 
-    require('@tailwindcss/container-queries'),
+
   ],
   daisyui: {
     //  3 themes

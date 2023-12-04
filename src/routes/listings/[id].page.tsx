@@ -14,9 +14,9 @@ import { makeImageUrl, pb } from "../../utils/api/pocketbase";
 import { GrUp, GrDown } from "react-icons/gr/index.js";
 import { useState } from "react";
 import { lazy } from "react";
-import { GoodImageCarousel } from "../../components/shared/wrappers/GoodCaroussel";
+import { GoodImageCarousel } from "@/components/shared/wrappers/GoodCaroussel";
 const ReactLeafletMapCard = lazy(
-  () => import("../../components/location/ReactLeafletMapCard")
+  () => import("@/components/location/ReactLeafletMapCard")
 );
 
 const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
@@ -67,13 +67,13 @@ const OneListingPage: Page = function OneListingPage({ params }: PageProps) {
   // const alt_img_url = makeImageUrl('listings', land.id, land.images[1] as string);
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center justify-center">
-      <Head title={land.location}>
+      {/* <Head title={land.location}>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="description" content={land.description} />
         <meta name="keywords" content={land.description} />
-      </Head>
+      </Head> */}
       <div className="w-full h-full flex flex-col items-center justify-center gap-2">
         {pb.authStore.model?.id ? (
           <Link

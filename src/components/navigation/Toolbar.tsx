@@ -5,7 +5,7 @@ import { lazy, useEffect, useState } from "react";
 import { RouteLinks } from "./RouteLinks";
 
 const ReactModalWrapper = lazy(
-  () => import("./../shared/wrappers/ReactModalWrapper")
+  () => import("@/components/shared/wrappers/ReactModalWrapper")
 );
 
 interface ToolbarProps {}
@@ -36,7 +36,7 @@ const Toolbar = ({}: ToolbarProps) => {
       >
         Real Estates
       </Link>
-
+{/* 
       <ClientSuspense fallback="">
         <ReactModalWrapper
           child={
@@ -60,7 +60,7 @@ const Toolbar = ({}: ToolbarProps) => {
             content_top: "2%",
           }}
         />
-      </ClientSuspense>
+      </ClientSuspense> */}
       <nav className="px-3 hidden md:flex">
         <RouteLinks />
       </nav>

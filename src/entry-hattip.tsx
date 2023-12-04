@@ -1,8 +1,8 @@
 import { RequestContext, createRequestHandler } from "rakkasjs";
 import { cookie } from "@hattip/cookie";
 import PocketBase from "pocketbase";
-import { TypedPocketBase } from "typed-pocketbase";
-import { Schema } from "./lib/pb/db-types";
+import { PocketBaseClient } from "./lib/pb/client";
+
 
 export async function beforePageLuciaMiddleware(ctx: RequestContext<unknown>) {}
 
@@ -14,7 +14,7 @@ export default createRequestHandler({
         ctx.locals.pb = new PocketBase(
           // @ts-expect-error
           import.meta.env.RAKKAS_PB_URL
-        ) as TypedPocketBase<Schema>;
+        ) as PocketBaseClient;
         // load the store data from the request cookie string
         ctx.locals.pb.authStore.loadFromCookie(
           ctx.request.headers.get("cookie") || ""
@@ -48,7 +48,7 @@ export default createRequestHandler({
           ctx.locals.pb = new PocketBase(
             // @ts-expect-error
             import.meta.env.RAKKAS_PB_URL
-          ) as TypedPocketBase<Schema>;
+          ) as PocketBaseClient;
           // load the store data from the request cookie string
           ctx.locals.pb.authStore.loadFromCookie(
             request.headers.get("cookie") || ""
