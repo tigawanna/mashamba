@@ -21,8 +21,8 @@ export default async function ListingsPage({ searchParams: { page = 1 } }: PageP
   );
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+    <div className="flex flex-col items-center gap-2">
+      <h1 className="text-3xl font-bold ">Hello world!</h1>
       <Suspense fallback={<ListingsCardLoader no={12} />}>
         {listings?.data && <Listings listings={listings.data?.items} />}
       </Suspense>
