@@ -1,13 +1,11 @@
 
-import Image from "next/image";
-import { HerosectionCaroussel } from "./HeroSectionCaroussel";
 import { GoodImageCarousel } from "../shared/GoodCaroussel";
 
 interface HeroSectionProps {}
 
 export function HeroSection({}: HeroSectionProps) {
   return (
-    <div className="w-full h-screen flex items-center justify-center relative">
+    <div className="w-full flex items-center justify-center relative">
       {/* <Image
       className="w-full h-full  "
       src="/assets/land-big.webp"
