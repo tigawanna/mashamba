@@ -5,7 +5,7 @@ interface HeroSectionProps {}
 
 export function HeroSection({}: HeroSectionProps) {
   return (
-    <div className="w-full flex items-center justify-center relative">
+    <div className="w-full h-screen flex items-center justify-center relative">
       {/* <Image
       className="w-full h-full  "
       src="/assets/land-big.webp"
@@ -24,9 +24,13 @@ export function HeroSection({}: HeroSectionProps) {
       /> */}
       <GoodImageCarousel
         imgs={["/assets/land-big.webp", "/assets/modern-1.jpg", "/assets/cabin.jpg"]}
+
         height={500}
         width={500}
-        props={{}}
+        priority
+        props={{
+          
+        }}
         autoScroll
         autoSrollLoop
       />

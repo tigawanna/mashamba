@@ -12,6 +12,7 @@ interface GoodImageCarouselProps {
   autoScroll?: boolean;
   autoSrollLoop?: boolean;
   delay?: number;
+  priority?: boolean;
 }
 
 export const GoodImageCarousel = ({
@@ -21,6 +22,7 @@ export const GoodImageCarousel = ({
   imgs,
   autoScroll = false,
   autoSrollLoop = false,
+  priority = false,
   ...props
 }: GoodImageCarouselProps) => {
   const [image, setImage] = useState({
@@ -98,10 +100,10 @@ export const GoodImageCarousel = ({
   }, [image.img, image.idx]);
 
   return (
-    <div className=" w-full lh-full flex items-center justify-center gap-2 relative">
+    <div className=" w-full min-h-[95vh] h-full flex items-center justify-center gap-2 relative object-fit">
       {image.idx !== 0 ? (
         <ChevronLeft
-          className="w-24 h-32 absolute left-[5%] z-20 bg-slate-500/20 rounded-md"
+          className="w-24 h-32 absolute top-[10%] lg:top-[40%] lg:bottom-[40%]  left-[5%] z-20 bg-slate-500/20 rounded-md"
           onClick={() => {
             prevImage();
           }}
@@ -111,12 +113,13 @@ export const GoodImageCarousel = ({
       <div className=" w-full  h-full flex items-center justify-center gap-2 ">
         <NextImage
           style={{ filter: isLoading ? "blur(10px)" : "none" }}
+          priority={priority}
           {...{
             src: imgSrc,
             alt: props.props.alt ?? "nice image",
             height,
             width,
-            loading: "lazy",
+
             className: "h-full w-full  aspect-video animate-in fade-in duration-500 rounded-lg",
             ...props,
           }}
@@ -125,7 +128,7 @@ export const GoodImageCarousel = ({
 
       {image.idx !== imgs.length - 1 ? (
         <ChevronRight
-          className="w-24 h-32 absolute right-[5%] z-20 bg-slate-500/20 rounded-md"
+          className="w-24 h-32 bottom-[10%] lg:top-[40%] lg:bottom-[40%%] absolute right-[5%] z-20 bg-slate-500/20 rounded-md"
           onClick={() => {
             nextImage();
           }}

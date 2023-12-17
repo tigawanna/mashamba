@@ -10,13 +10,14 @@ import { ListingsPagination } from "./controls/ListingsPagination";
 import { ListingsSearchbar } from "./controls/ListingsSearchbar";
 
 interface ListingsProps {
+  show_controls?:boolean;
   searchParams: {
     q?: string;
     p?: number;
   };
 }
 
-export async function Listings({ searchParams:{p=1,q=""} }: ListingsProps) {
+export async function Listings({ show_controls=true,searchParams:{p=1,q=""} }: ListingsProps) {
   	    const { pb } = await server_component_pb();
         const res = await tryCatchWrapper(
           pb.collection("mashamba_listings").getList(p, 3, {
@@ -28,7 +29,7 @@ export async function Listings({ searchParams:{p=1,q=""} }: ListingsProps) {
   const page_details = res.data
   return (
     <div className="w-full h-full flex flex-col items-center ">
-      <ListingsSearchbar/>
+      {show_controls&&<ListingsSearchbar/>}
       <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-3 lg:gap-4">
         {listings &&
           listings.map((land) => {
@@ -37,7 +38,7 @@ export async function Listings({ searchParams:{p=1,q=""} }: ListingsProps) {
             );
           })}
       </div>
-      {page_details && <ListingsPagination page_details={page_details} />}
+      {(page_details && show_controls) && <ListingsPagination page_details={page_details} />}
     </div>
   );
 }
