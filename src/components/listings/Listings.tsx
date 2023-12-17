@@ -1,20 +1,28 @@
 import { getFileURL } from "@/lib/pb/client";
 import { MashambaListingsResponse, MashambaOwnerResponse } from "@/lib/pb/db-types";
 import Link from "next/link";
-import { TypedRecord } from "typed-pocketbase";
+import { TypedRecord, expand, like, or } from "typed-pocketbase";
 import { Image } from "@nextui-org/react";
 import { Card, CardFooter } from "@nextui-org/react";
+import { server_component_pb } from "@/lib/pb/server_component_pb";
+import { tryCatchWrapper } from "@/utils/helpers/async";
 
 interface ListingsProps {
-  listings: TypedRecord<
-    MashambaListingsResponse,
-    {
-      owner: TypedRecord<MashambaOwnerResponse>;
-    }
-  >[];
+  searchParams: {
+    q?: string;
+    p?: number;
+  };
 }
 
-export function Listings({ listings }: ListingsProps) {
+export async function Listings({ searchParams:{p=1,q=""} }: ListingsProps) {
+  	    const { pb } = await server_component_pb();
+        const res = await tryCatchWrapper(
+          pb.collection("mashamba_listings").getList(p, 12, {
+            filter: or(like("location", q), like("description", q), like("owner.name", q)),
+            expand: expand({ owner: true }),
+          })
+        );
+  const listings = res.data?.items
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-3 lg:gap-4">
