@@ -23,10 +23,10 @@ export default async function Home({ searchParams: { page = 1 } }: PageProps) {
   return (
     <section className="flex flex-col  h-full gap-2 min-h-screen">
       <HeroSection />
-	  
-	  <Suspense fallback={<ListingsCardLoader no={12}/>}>
-		{listings?.data && <Listings listings={listings.data?.items} />}
-	  </Suspense>
+     
+      <Suspense fallback={<ListingsCardLoader no={12} />}>
+        {listings?.data && <Listings listings={listings.data?.items} />}
+      </Suspense>
     </section>
   );
 }
