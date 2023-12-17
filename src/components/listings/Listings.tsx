@@ -6,6 +6,8 @@ import { Image } from "@nextui-org/react";
 import { Card, CardFooter } from "@nextui-org/react";
 import { server_component_pb } from "@/lib/pb/server_component_pb";
 import { tryCatchWrapper } from "@/utils/helpers/async";
+import { ListingsPagination } from "./controls/ListingsPagination";
+import { ListingsSearchbar } from "./controls/ListingsSearchbar";
 
 interface ListingsProps {
   searchParams: {
@@ -17,28 +19,25 @@ interface ListingsProps {
 export async function Listings({ searchParams:{p=1,q=""} }: ListingsProps) {
   	    const { pb } = await server_component_pb();
         const res = await tryCatchWrapper(
-          pb.collection("mashamba_listings").getList(p, 12, {
+          pb.collection("mashamba_listings").getList(p, 3, {
             filter: or(like("location", q), like("description", q), like("owner.name", q)),
             expand: expand({ owner: true }),
           })
         );
   const listings = res.data?.items
+  const page_details = res.data
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center ">
+      <ListingsSearchbar/>
       <div className="w-[90%] p-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-3 lg:gap-4">
         {listings &&
           listings.map((land) => {
-            //   const alt_img_url = getFileURL({
-            //     collection_id_or_name: "mashamba_listings",
-            //     file_name: (land.images[0] as string) + "?thumb=100x100",
-            //     record_id: land.id,
-            //   });
-
-            return (
+          return (
             <ListingsCard key={land.id} listing={land} />
             );
           })}
       </div>
+      {page_details && <ListingsPagination page_details={page_details} />}
     </div>
   );
 }
@@ -53,6 +52,11 @@ interface ListingsCardProps {
 }
 
 export function ListingsCard({ listing }: ListingsCardProps) {
+  //   const alt_img_url = getFileURL({
+  //     collection_id_or_name: "mashamba_listings",
+  //     file_name: (land.images[0] as string) + "?thumb=100x100",
+  //     record_id: land.id,
+  //   });
   const img_url = getFileURL({
     collection_id_or_name: "mashamba_listings",
     file_name: listing.images[0] as string,
@@ -62,9 +66,7 @@ export function ListingsCard({ listing }: ListingsCardProps) {
     <Link
       href={`/listings/${listing.id}`}
       className=" w-full flex flex-col items-start rounded-2xl hover:brightness-75">
-      <Card
-        isFooterBlurred
-        className="w-full h-[400px] flex flex-col justify-between ">
+      <Card isFooterBlurred className="w-full h-[400px] flex flex-col justify-between ">
         {/* <CardHeader className="absolute z-10 top-1 flex-col items-start">
         <h4 className="text-white/90 font-medium text-3xl bg-slate-700/40 px-3 ">
           {listing.location}
